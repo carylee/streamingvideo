@@ -42,7 +42,7 @@ function ovp_access($op, $node, $account) {
  * Implementation of hook_form()
  */
 function ovp_form(&$node) {
-  $type = node_get_type('type', $node);
+  $type = node_get_types('type', $node);
 
   // We need to define form elements for the node's title and body.
   $form['title'] = array(
@@ -78,4 +78,35 @@ function ovp_help($path, $arg) {
   case 'admin/help#block':
     return '<p>'. t('This creates a content type which allows the creation of streaming video files. These files will be replaced by a player.') . '</p>';
   }
+}
+
+function ovp_admin() {
+  $form = array();
+
+  $form['ovp_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width of player'),
+    '#default_value' => variable_get('ovp_width', 340),
+    '#size' => 3,
+    '#maxlength' => 3,
+    '#description' => t("The width of the player"),
+    '#required' => TRUE,
+  );
+  
+  return system_settings_form($form);
+}
+
+function ovp_menu() {
+  $items = array();
+
+  $items['admin/settings/ovp'] = array(
+    'title' => 'Open video player module settings',
+    'description' => 'Here you can change the default settings of the open video player',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ovp_admin'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
 }
