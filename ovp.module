@@ -71,6 +71,31 @@ function ovp_form(&$node) {
 }
 
 /**
+ * Implementation of hook_insert()
+ */
+function ovp_insert($node) {
+  db_query("INSERT INTO {ovp} (vid, nid, location) VALUES (%d, %d, '%s')", $node->vid, $node->nid, $node->location);
+}
+
+/**
+ * Implementation of hook_update()
+ */
+function ovp_update($node) {
+  // if this is a new node or we're adding a new revision,
+  if ($node->revision) {
+    ovp_insert($node);
+  }
+  else {
+    db_query("UPDATE {ovp} SET location = '%s' WHERE vid = %d", $node->location, $node->vid);
+  }
+}
+
+/**
+ * Implementation of hook_delete()
+ */
+//function ovp_delete
+
+/**
  * Implementation of hook_help()
  */
 function ovp_help($path, $arg) {
