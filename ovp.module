@@ -1,0 +1,81 @@
+<?php
+
+/**
+* Implementation of hook_node_info()
+*/
+function ovp_node_info() {
+  return array(
+    'ovp' => array(
+      'name' => t('Open video player'),
+      'module' => 'ovp',
+      'description' => "Embed a streaming video.",
+    )
+  );
+}
+
+/**
+* Implementation of hook_perm()
+ */
+function ovp_perm() {
+  return array('create ovp', 'edit own ovp');
+}
+
+/**
+ * Implementation of hook_access()
+ */
+function ovp_access($op, $node, $account) {
+  if ($op == 'create') {
+    // Only users with permission to do so may create this node type.
+    return user_access('create ovp', $account);
+  }
+
+  // Users who create a node may edit or delete it later, assuming they have the
+  // necessary permissions.
+  if ($op == 'update' || $op == 'delete') {
+    if (user_access('edit own ovp', $account) && ($account->uid == $node->uid)) {
+      return TRUE;
+    }
+  }
+}
+
+/**
+ * Implementation of hook_form()
+ */
+function ovp_form(&$node) {
+  $type = node_get_type('type', $node);
+
+  // We need to define form elements for the node's title and body.
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title'=> check_plain($type->title_label),
+    '#required' => TRUE,
+    '#default_value' => $node->title,
+    '#weight'=> -5
+  );
+
+  $form['body_filter']['body'] = array(
+    '#type' => 'textarea',
+    '#title' => check_plain($type->body_label),
+    '#default_value' => $node->body,
+    '#required' => FALSE
+  );
+  $form['body_filter']['filter'] = filter_form($node->format);
+
+  $form['location'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Streaming location'),
+    '#default_value' => isset($node->location) ? $node->location : '',
+  );
+
+  return $form;
+}
+
+/**
+ * Implementation of hook_help()
+ */
+function ovp_help($path, $arg) {
+  switch ($path) {
+  case 'admin/help#block':
+    return '<p>'. t('This creates a content type which allows the creation of streaming video files. These files will be replaced by a player.') . '</p>';
+  }
+}

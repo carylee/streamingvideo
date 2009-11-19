@@ -1,0 +1,4 @@
+; $Id$
+name = Open Video Player
+description = "Creates the ability to embed streaming video with the Open Video Player"
+core = 6.x
