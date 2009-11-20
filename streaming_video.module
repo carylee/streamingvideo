@@ -6,7 +6,7 @@
 function streaming_video_node_info() {
   return array(
     'streaming_video' => array(
-      'name' => t('Open video player'),
+      'name' => t('Streaming video'),
       'module' => 'streaming_video',
       'description' => "Embed a streaming video.",
     )
@@ -125,7 +125,7 @@ function streaming_video_menu() {
   $items = array();
 
   $items['admin/settings/streaming_video'] = array(
-    'title' => 'Open video player module settings',
+    'title' => 'Streaming video module settings',
     'description' => 'Here you can change the default settings of the open video player',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('streaming_video_admin'),
