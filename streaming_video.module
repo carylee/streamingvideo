@@ -21,117 +21,40 @@ function streaming_video_perm() {
 }
 
 /**
- * Implementation of hook_access()
+ * Implementation of hook_init()
  */
-function streaming_video_access($op, $node, $account) {
-  if ($op == 'create') {
-    // Only users with permission to do so may create this node type.
-    return user_access('create streaming_video', $account);
-  }
-
-  // Users who create a node may edit or delete it later, assuming they have the
-  // necessary permissions.
-  if ($op == 'update' || $op == 'delete') {
-    if (user_access('edit own streaming_video', $account) && ($account->uid == $node->uid)) {
-      return TRUE;
-    }
-  }
+function streaming_video_init() {
+  $path = drupal_get_path('module', 'streaming_video') . "/swfobject/swfobject.js";
+  drupal_add_js('$path', 'module');
 }
 
 /**
- * Implementation of hook_form()
+ * Implementation of hook_filter()
  */
-function streaming_video_form(&$node) {
-  $type = node_get_types('type', $node);
-
-  // We need to define form elements for the node's title and body.
-  $form['title'] = array(
-    '#type' => 'textfield',
-    '#title'=> check_plain($type->title_label),
-    '#required' => TRUE,
-    '#default_value' => $node->title,
-    '#weight'=> -5
-  );
-
-  $form['body_filter']['body'] = array(
-    '#type' => 'textarea',
-    '#title' => check_plain($type->body_label),
-    '#default_value' => $node->body,
-    '#required' => FALSE
-  );
-  $form['body_filter']['filter'] = filter_form($node->format);
-
-  $form['location'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Streaming location'),
-    '#default_value' => isset($node->location) ? $node->location : '',
-  );
-
-  return $form;
-}
-
-/**
- * Implementation of hook_insert()
- */
-function streaming_video_insert($node) {
-  db_query("INSERT INTO {streaming_video} (vid, nid, location) VALUES (%d, %d, '%s')", $node->vid, $node->nid, $node->location);
-}
-
-/**
- * Implementation of hook_update()
- */
-function streaming_video_update($node) {
-  // if this is a new node or we're adding a new revision,
-  if ($node->revision) {
-    streaming_video_insert($node);
+function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
+  if ($op == 'list') {
+    return array(
+      0 => t('Substitute ovp'),
+    );
   }
-  else {
-    db_query("UPDATE {streaming_video} SET location = '%s' WHERE vid = %d", $node->location, $node->vid);
+
+  switch ($delta) {
+    case 0:
+
+      switch ($op) {
+        case 'description':
+          return t('Embeds an open video player');
+
+        case 'prepare':
+          return $text;
+
+        case 'process':
+          $pattern = '/\[ovp:([A-Za-z:\/0-9._-]*)]/';
+          //$replacement = "<div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+          $replacement = "this is my replacement for the text";
+          preg_replace($pattern, $replacement, $text);
+
+        }
+      break;
   }
-}
-
-/**
- * Implementation of hook_delete()
- */
-//function streaming_video_delete
-
-/**
- * Implementation of hook_help()
- */
-function streaming_video_help($path, $arg) {
-  switch ($path) {
-  case 'admin/help#block':
-    return '<p>'. t('This creates a content type which allows the creation of streaming video files. These files will be replaced by a player.') . '</p>';
-  }
-}
-
-function streaming_video_admin() {
-  $form = array();
-
-  $form['streaming_video_width'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Width of player'),
-    '#default_value' => variable_get('streaming_video_width', 340),
-    '#size' => 3,
-    '#maxlength' => 3,
-    '#description' => t("The width of the player"),
-    '#required' => TRUE,
-  );
-  
-  return system_settings_form($form);
-}
-
-function streaming_video_menu() {
-  $items = array();
-
-  $items['admin/settings/streaming_video'] = array(
-    'title' => 'Streaming video module settings',
-    'description' => 'Here you can change the default settings of the open video player',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('streaming_video_admin'),
-    'access arguments' => array('access administration pages'),
-    'type' => MENU_NORMAL_ITEM,
-  );
-
-  return $items;
 }
