@@ -55,8 +55,9 @@ function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
           //$replacement = "this is my replacement for the text";
           $num_matches = preg_match( $pattern, $text, $matches );
           $location = $matches[1];
-          $player = base_path() . "sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf";
-          $embed = "<script type='text/javascript'>var flashvars = {src: '$location',autostart: 'true',themeColor: '0395d3',mode: 'sidebyside',scaleMode: 'fit',frameColor: '333333',fontColor: 'cccccc',link: '',embed: ''};var params = {allowFullScreen: 'true'};var attributes = {id: 'myPlayer',name: 'myPlayer'};swfobject.embedSWF('$player', 'myPlayerGoesHere', '320', '240', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+          $embed = streaming_video_header_js( $location );
+          $replace_me = "<div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+          drupal_add_js( $embed, 'inline');
           $text = preg_replace($pattern, $embed , $text);
 
         default:
@@ -65,4 +66,29 @@ function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
         }
       break;
   }
+}
+
+function streaming_video_header_js( $src, $options=NULL ) {
+  $player = base_path() . "sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf";
+  if(!isset($options)) {
+    $options = array(
+      'autostart' => 'true',
+      'themeColor' => '0395d3',
+      'mode' => 'sidebyside',
+      'scaleMode' => 'fit',
+      'frameColor' => '333333',
+      'fontColor' => 'cccccc',
+      'link' => '',
+      'embed' => '',
+      'allowFullScreen' => 'true',
+      'id' => 'myPlayer',
+      'name' => 'myPlayer',
+      'width' => '640',
+      'height' => '480',
+    );
+  }
+
+  $embed = "<script type='text/javascript'>var flashvars = {src: '$src',autostart: '$options->autostart',themeColor: '0395d3',mode: 'sidebyside',scaleMode: 'fit',frameColor: '333333',fontColor: 'cccccc',link: '',embed: ''};var params = {allowFullScreen: 'true'};var attributes = {id: 'myPlayer',name: 'myPlayer'};swfobject.embedSWF('$player', 'myPlayerGoesHere', '640', '480', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);</script>";
+
+  return $embed;
 }
