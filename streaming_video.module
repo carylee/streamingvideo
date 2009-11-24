@@ -24,8 +24,9 @@ function streaming_video_perm() {
  * Implementation of hook_init()
  */
 function streaming_video_init() {
-  $path = drupal_get_path('module', 'streaming_video') . "/swfobject/swfobject.js";
-  drupal_add_js('$path', 'module');
+  $path = drupal_get_path('module', 'streaming_video');
+  $path .= "/swfobject/swfobject.js";
+  drupal_add_js($path, 'module');
 }
 
 /**
@@ -50,9 +51,16 @@ function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
 
         case 'process':
           $pattern = '/\[ovp:([A-Za-z:\/0-9._-]*)]/';
-          //$replacement = "<div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
-          $replacement = "this is my replacement for the text";
-          preg_replace($pattern, $replacement, $text);
+          $replacement = "";
+          //$replacement = "this is my replacement for the text";
+          $num_matches = preg_match( $pattern, $text, $matches );
+          $location = $matches[1];
+          $player = base_path() . "sites/all/libraries/AkamaiMultiPlayerExample.swf";
+          $embed = "<script type='text/javascript'>var flashvars = {src: '$matches',autostart: 'true',themeColor: '0395d3',mode: 'sidebyside',scaleMode: 'fit',frameColor: '333333',fontColor: 'cccccc',link: '',embed: ''};var params = {allowFullScreen: 'true'};var attributes = {id: 'myPlayer',name: 'myPlayer'};swfobject.embedSWF('$player', 'myPlayerGoesHere', '640', '320', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+          $text = preg_replace($pattern, $embed , $text);
+
+        default:
+          return $text;
 
         }
       break;
