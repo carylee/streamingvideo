@@ -54,7 +54,7 @@ function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
           $replacement = "";
           //$replacement = "this is my replacement for the text";
           $num_matches = preg_match( $pattern, $text, $matches );
-          $location = $matches[1];
+          $location = htmlentities( $matches[1] );
 
           $embed = streaming_video_header_js( $location );
 
