@@ -72,7 +72,7 @@ function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
 
 function streaming_video_header_js( $src, $options=NULL ) {
   $player = base_path() . "sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf";
-  $player = urlencode($player);
+  //$player = urlencode($player);
   if(!isset($options)) {
     $options = array(
       'autostart' => 'false',
