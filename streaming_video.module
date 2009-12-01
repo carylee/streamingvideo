@@ -90,7 +90,7 @@ function streaming_video_header_js( $src, $options=NULL ) {
     );
   }
 
-  $src_encoded = htmlentities($src);
+  $src_encoded = urlencode($src);
   $embed = "var flashvars = {src: '$src_encoded',autostart: '$options->autostart',themeColor: '0395d3',mode: 'sidebyside',scaleMode: 'fit',frameColor: '333333',fontColor: 'cccccc',link: '',embed: ''};var params = {allowFullScreen: 'true'};var attributes = {id: 'myPlayer',name: 'myPlayer'};swfobject.embedSWF('$player', 'myPlayerGoesHere', '640', '480', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);";
 
   return $embed;
