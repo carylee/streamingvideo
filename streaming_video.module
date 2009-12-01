@@ -55,9 +55,11 @@ function streaming_video_filter($op, $delta = 0, $format = -1, $text = '') {
           //$replacement = "this is my replacement for the text";
           $num_matches = preg_match( $pattern, $text, $matches );
           $location = $matches[1];
+
           $embed = streaming_video_header_js( $location );
-          $replace_me = "<div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
-          drupal_add_js( $embed, 'inline');
+
+          $replace_me = "<script type='text/javascript'>$embed</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+          //drupal_add_js( $embed, 'inline');
           $text = preg_replace($pattern, $replace_me , $text);
 
         default:
