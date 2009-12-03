@@ -92,7 +92,9 @@ function streaming_video_header_js( $src, $options=NULL ) {
   // Load the variables
   $width = variable_get('streaming_video_width', 640);
   $height = variable_get('streaming_video_height', 480);
-  $autostart = variable_get('streaming_video_autostart', 'false');
+  $autostart_value = variable_get('streaming_video_autostart', 'false');
+  if( $autostart_value == 1 ) $autostart = false;
+  else $autostart = true;
   $mode = variable_get('streaming_video_mode', 'sidebyside');
   $themecolor = variable_get('streaming_video_themecolor', '0395d3');
 
@@ -120,6 +122,15 @@ function streaming_video_header_js( $src, $options=NULL ) {
 function streaming_video_admin() {
   $form = array();
 
+  $form['streaming_video_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width of player'),
+    '#default_value' => variable_get('streaming_video_width', 640),
+    '#size' => 3,
+    '#description' => t("The width of the player in pixels"),
+    '#required' => TRUE,
+  );
+
   $form['streaming_video_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height of player'),
@@ -127,6 +138,13 @@ function streaming_video_admin() {
     '#size' => 3,
     '#description' => t("The height of the player in pixels"),
     '#required' => TRUE,
+  );
+
+  $form['streaming_video_autostart'] = array(
+    '#type' =? 'radios',
+    '#title' => t('Autostart video?'),
+    '#default_value' => variable_get('streaming_video_autostart', 1),
+    '#options' => array( t('No'), t('Yes') ),
   );
 
   return system_settings_form($form);
