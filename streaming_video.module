@@ -141,7 +141,7 @@ function streaming_video_admin() {
   );
 
   $form['streaming_video_autostart'] = array(
-    '#type' =? 'radios',
+    '#type' => 'radios',
     '#title' => t('Autostart video?'),
     '#default_value' => variable_get('streaming_video_autostart', 1),
     '#options' => array( t('No'), t('Yes') ),
@@ -158,7 +158,7 @@ function streaming_video_menu() {
   $items = array();
 
   $items['admin/settings/streaming_video'] = array(
-    'title' => 'Streaming video module settings',
+    'title' => 'Streaming video settings',
     'description' => 'Change the settings of the default OVP player',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('streaming_video_admin'),
