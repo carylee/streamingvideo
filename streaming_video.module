@@ -92,29 +92,31 @@ function streaming_video_header_js( $src, $options=NULL ) {
   // Load the variables
   $width = variable_get('streaming_video_width', 640);
   $height = variable_get('streaming_video_height', 480);
-  $autostart_value = variable_get('streaming_video_autostart', 'false');
-  if( $autostart_value == 1 ) $autostart = false;
-  else $autostart = true;
+  $autostart = variable_get('streaming_video_autostart', 'false');
   $mode = variable_get('streaming_video_mode', 'sidebyside');
+  // options: sidebyside or overlay
   $themecolor = variable_get('streaming_video_themecolor', '0395d3');
+  $allowfullscreen = variable_get('streaming_video_allowfullscreen', 'true');
+  $scalemode = variable_get('streaming_video_scalemode', 'fit');
+  // options: fit, stretch, native, nativeorsmaller
 
   $src_encoded = urlencode($src);
 
   $embed = "
     var flashvars = { 
       src: \"$src_encoded\", 
-      autostart: \"false\", 
-      themeColor: \"0395d3\", 
-      mode: \"sidebyside\", 
-      scaleMode: \"fit\" 
+      autostart: \"$autostart\", 
+      themeColor: \"$themecolor\", 
+      mode: \"$mode\", 
+      scaleMode: \"$scalemode\" 
     }; 
     var params = {}; 
       var attributes = { 
       id: \"myPlayer\", 
       name: \"myPlayer\", 
-      allowFullScreen: \"true\" 
+      allowFullScreen: \"$allowfullscreen\" 
     }; 
-    swfobject.embedSWF(\"$player\", 'myPlayerGoesHere', '640', '$height', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);";
+    swfobject.embedSWF(\"$player\", 'myPlayerGoesHere', '$width', '$height', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);";
 
   return $embed;
 }
@@ -143,8 +145,42 @@ function streaming_video_admin() {
   $form['streaming_video_autostart'] = array(
     '#type' => 'radios',
     '#title' => t('Autostart video?'),
-    '#default_value' => variable_get('streaming_video_autostart', 1),
-    '#options' => array( t('Yes'), t('No') ),
+    '#default_value' => variable_get('streaming_video_autostart', 'false'),
+    '#options' => array( 
+      'true' => t('Yes'),
+      'false' => t('No'),
+    ),
+  );
+
+  $form['streaming_video_mode'] = array(
+    '#type' => 'select',
+    '#title' => t('Layout mode'),
+    '#default_value' => variable_get('streaming_video_mode', 'sidebyside'),
+    '#options' => array(
+      'sidebyside' => t('Side by side'),
+      'overlay' => t('Overlay'),
+    ),
+  );
+
+  $form['streaming_video_scalemode'] = array(
+    '#type' => 'select',
+    '#title' => t('Video scale mode'),
+    '#default_value' => variable_get('streaming_video_scalemode', 'fit'),
+    '#options' => array(
+      'fit' => t('Fit'),
+      'stretch' => t('Stretch'),
+      'native' => t('Native'),
+      'nativeorsmaller' => t('Native or smaller'),
+    )
+  );
+
+  $form['streaming_video_themecolor'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Theme color'),
+    '#default_value' => variable_get('streaming_video_themecolor', '0395d3'),
+    '#size' => 6,
+    '#description' => t("Enter a hexidecimal color code for the player theme color"),
+    '#required' => FALSE,
   );
 
   return system_settings_form($form);
