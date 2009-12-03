@@ -150,6 +150,24 @@ function streaming_video_admin() {
   return system_settings_form($form);
 }
 
+function streaming_video_admin_validate($form, &$form_state) {
+  $width = $form_state['values']['streaming_video_width'];
+  if (!is_numeric($width)) {
+    form_set_error('streaming_video_width', t('You must enter an integer for the player width.') );
+  }
+  else if ($width <= 0) {
+    form_set_error('streaming_video_width', t('Player width must be positive.'));
+  }
+  $height = $form_state['values']['streaming_video_height'];
+  if (!is_numeric($height)) {
+    form_set_error('streaming_video_height', t('You must enter an integer for the player height.') );
+  }
+  else if ($height <= 0) {
+    form_set_error('streaming_video_height', t('Player height must be positive.'));
+  }
+}
+
+
 /**
  * Implementation of hook_menu();
  */
