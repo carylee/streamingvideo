@@ -144,7 +144,7 @@ function streaming_video_admin() {
     '#type' => 'radios',
     '#title' => t('Autostart video?'),
     '#default_value' => variable_get('streaming_video_autostart', 1),
-    '#options' => array( t('No'), t('Yes') ),
+    '#options' => array( t('Yes'), t('No') ),
   );
 
   return system_settings_form($form);
