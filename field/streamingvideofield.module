@@ -81,9 +81,22 @@ function streamingvideofield_process($element, $edit, $form_state, $form) {
 
 
 /**
- * Implementation of hook_help()
+ * Implementation of hook_content_is_empty()
  */
+function streamingvideofield_content_is_empty( $item, $field) {
+  return empty($item['url']);
+}
 
 /**
- * Implementation of hook_help()
+ * Implementation of hook_field_formatter_info()
  */
+function streamingvideofield_field_formatter_info() {
+  require_once(drupal_get_path('module', 'streamingvideo') . '/streamingvideo.inc');
+  return array(
+    'default' => array(
+      'label' => t('Streaming Video URI'),
+      'field types' => array('streamingvideofield'),
+    ),
+  );
+}
+
