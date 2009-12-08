@@ -1,0 +1,175 @@
+<?php
+
+require_once(drupal_get_path('module', 'streamingvideo') . '/streamingvideo.inc' );
+
+/**
+* Implementation of hook_node_info()
+*/
+/*function streamingvideo_node_info() {
+  return array(
+    'streamingvideo' => array(
+      'name' => t('Streaming video'),
+      'module' => 'streamingvideo',
+      'description' => "Embed a streaming video.",
+    )
+  );
+}*/
+
+/**
+* Implementation of hook_perm()
+ */
+function streamingvideo_perm() {
+  return array('create streamingvideo', 'edit own streamingvideo');
+}
+
+/**
+ * Implementation of hook_init()
+ */
+function streamingvideo_init() {
+  $path = drupal_get_path('module', 'streamingvideo');
+  $path .= "/swfobject/swfobject.js";
+  drupal_add_js($path, 'module');
+}
+
+/**
+ * Implementation of hook_filter()
+ */
+function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
+  if ($op == 'list') {
+    return array(
+      0 => t('Substitute ovp'),
+    );
+  }
+
+  switch ($delta) {
+    case 0:
+
+      switch ($op) {
+        case 'description':
+          return t('Embeds an open video player');
+
+        case 'prepare':
+          return $text;
+
+        case 'process':
+          $pattern = '/\[ovp:([A-Za-z:\/0-9._-]*)]/';
+          $replacement = "";
+          //$replacement = "this is my replacement for the text";
+          $num_matches = preg_match( $pattern, $text, $matches );
+          $location = $matches[1];
+
+          $embed = streamingvideo_embedcode( $location );
+
+          $replace_me = "<script type='text/javascript'>$embed</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+          //drupal_add_js( $embed, 'inline');
+          $text = preg_replace($pattern, $replace_me , $text);
+
+        default:
+          return $text;
+
+        }
+      break;
+  }
+}
+
+function streamingvideo_admin() {
+  $form = array();
+
+  $form['streamingvideo_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width of player'),
+    '#default_value' => variable_get('streamingvideo_width', 640),
+    '#size' => 3,
+    '#description' => t("The width of the player in pixels"),
+    '#required' => TRUE,
+  );
+
+  $form['streamingvideo_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Height of player'),
+    '#default_value' => variable_get('streamingvideo_height', 480),
+    '#size' => 3,
+    '#description' => t("The height of the player in pixels"),
+    '#required' => TRUE,
+  );
+
+  $form['streamingvideo_autostart'] = array(
+    '#type' => 'radios',
+    '#title' => t('Autostart video?'),
+    '#default_value' => variable_get('streamingvideo_autostart', 'false'),
+    '#options' => array( 
+      'true' => t('Yes'),
+      'false' => t('No'),
+    ),
+  );
+
+  $form['streamingvideo_mode'] = array(
+    '#type' => 'select',
+    '#title' => t('Layout mode'),
+    '#default_value' => variable_get('streamingvideo_mode', 'sidebyside'),
+    '#options' => array(
+      'sidebyside' => t('Side by side'),
+      'overlay' => t('Overlay'),
+    ),
+  );
+
+  $form['streamingvideo_scalemode'] = array(
+    '#type' => 'select',
+    '#title' => t('Video scale mode'),
+    '#default_value' => variable_get('streamingvideo_scalemode', 'fit'),
+    '#options' => array(
+      'fit' => t('Fit'),
+      'stretch' => t('Stretch'),
+      'native' => t('Native'),
+      'nativeorsmaller' => t('Native or smaller'),
+    )
+  );
+
+  $form['streamingvideo_themecolor'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Theme color'),
+    '#default_value' => variable_get('streamingvideo_themecolor', '0395d3'),
+    '#size' => 6,
+    '#description' => t("Enter a hexidecimal color code for the player theme color"),
+    '#required' => FALSE,
+  );
+
+  return system_settings_form($form);
+}
+
+function streamingvideo_admin_validate($form, &$form_state) {
+  $width = $form_state['values']['streamingvideo_width'];
+  if (!is_numeric($width)) {
+    form_set_error('streamingvideo_width', t('You must enter an integer for the player width.') );
+  }
+  else if ($width <= 0) {
+    form_set_error('streamingvideo_width', t('Player width must be positive.'));
+  }
+  $height = $form_state['values']['streamingvideo_height'];
+  if (!is_numeric($height)) {
+    form_set_error('streamingvideo_height', t('You must enter an integer for the player height.') );
+  }
+  else if ($height <= 0) {
+    form_set_error('streamingvideo_height', t('Player height must be positive.'));
+  }
+}
+
+
+/**
+ * Implementation of hook_menu();
+ */
+function streamingvideo_menu() {
+
+  $items = array();
+
+  $items['admin/settings/streamingvideo'] = array(
+    'title' => 'Streaming video settings',
+    'description' => 'Change the settings of the default OVP player',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('streamingvideo_admin'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
