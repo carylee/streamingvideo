@@ -1,0 +1,89 @@
+<?php
+streamingvideofield_
+
+/**
+ * Implementation of hook_help()
+ */
+//function streamingvideofield_help
+
+/**
+ * Implementation of hook_field_info()
+ */
+function streamingvideofield_field_info() {
+  return array(
+    'streamingvideofield' => array(
+      'label' => 'Streaming Video',
+      'description' => t('Store streaming video locations (like rtmp) and embed them in nodes with the Akamai Open Video Player.'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_field_settings()
+ */
+function streamingvideofield_field_settings($op, $field) {
+  switch ($op) {
+    case 'database columns':
+      $columns = array(
+        'url' => array('type' => 'varchar', 'length' => 64, 'not null' => FALSE, 'sortable' => TRUE),
+      );
+      return $columns;
+  }
+}
+
+/**
+ * Implementation of hook_widget_info()
+ */
+function streamingvideofield_widget_info() {
+  return array(
+    'streamingvideofield' => array(
+      'label' => 'Streaming Video',
+      'field types' => array('streamingvideofield'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+      'callbacks' => array(
+        'default value' => CONTENT_CALLBACK_DEFAULT,
+      ),
+      'description' => t('An widget for a streaming video field?'),
+    ),
+  );
+}
+
+function streamingvideofield_elements() {
+  return array(
+    'streamingvideofield' => array(
+      '#input' => TRUE,
+      '#columns' => array('url'),
+      '#process' => array('streamingvideofield_process'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_widget()
+ */
+function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta = 0) {
+  $element = array(
+    '#type' => $field['widget']['type'],
+    '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
+  );
+  return $element;
+}
+
+function streamingvideofield_process($element, $edit, $form_state, $form) {
+  $element['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Video url'),
+    '#default_value' => !empty($element['#value']['url']) ? $element['#value']['url'] : '',
+    '#required' => $element['#required'],
+  );
+  return $element;
+}
+
+
+/**
+ * Implementation of hook_help()
+ */
+
+/**
+ * Implementation of hook_help()
+ */
