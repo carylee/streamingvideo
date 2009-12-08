@@ -2,3 +2,4 @@
 name = Streaming video
 description = "Creates the ability to embed streaming video with the Open Video Player"
 core = 6.x
+package = Video
