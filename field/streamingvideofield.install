@@ -1,0 +1,40 @@
+<?php
+// $Id$
+
+// Much of this is drawn from a tutorial at http://www.lullabot.com/articles/creating-custom-cck-fields
+
+/**
+ * @file
+ * implementation of hook_install()
+ */
+function streamingvideofield_install() {
+  drupal_load('module', 'content');
+  content_notify('install', 'streamingvideofield');
+}
+
+/**
+ * Implementation of hook_uninstall() {
+ */
+function streamingvideofield_uninstall() {
+  drupal_load('module', 'content');
+  content_notify('uninstall', 'streamingvideofield');
+}
+
+/**
+ * Implementation of hook_enable()
+ * Notify content module when this module is enabled.
+ */
+function streamingvideofield_enable() {
+  drupal_load('module', 'content');
+  content_notify('enable', 'streamingvideofield');
+}
+
+/**
+ * Implementation of hook_disable()
+ * Notify content module when this module is disabled
+ */
+function streamingvideofield_disable() {
+  drupal_load('module', 'content');
+  content_notify('disable', 'streamingvideofield');
+}
+?>
