@@ -37,9 +37,17 @@ function streamingvideofield_field_settings($op, $field) {
       );
       return $form;
 
+    case 'save':
+      return array('max_length');
+
     case 'database columns':
       $columns = array(
-        'url' => array('type' => 'varchar', 'length' => 64, 'not null' => FALSE, 'sortable' => TRUE),
+        'url' => array(
+          'type' => 'varchar', 
+          'length' => 64, 
+          'not null' => FALSE, 
+          'sortable' => TRUE
+        ),
       );
       return $columns;
   }
