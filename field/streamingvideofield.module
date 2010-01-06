@@ -22,6 +22,21 @@ function streamingvideofield_field_info() {
  */
 function streamingvideofield_field_settings($op, $field) {
   switch ($op) {
+    case 'form': // It appears I need this case, but I can't find a good explanation of it 1/6
+      // taken from lullabot.com/articles/creating-custom-cck-fields
+      $form = array();
+      $form['max_length'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Maximum length'),
+        '#default_value' => is_numeric($field['max_length']) ? $field['max_length'] : 255,
+        '#required' => FALSE,
+
+        // Use #element_validate to validate the settings
+        '#element_validate' => array('_streamingvideofield_length_validate'),
+        '#description' => t('The maximum length of the field in characters. Must be a number between 1 and 255'),
+      );
+      return $form;
+
     case 'database columns':
       $columns = array(
         'url' => array('type' => 'varchar', 'length' => 64, 'not null' => FALSE, 'sortable' => TRUE),
