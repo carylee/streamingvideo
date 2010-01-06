@@ -128,13 +128,41 @@ function streamingvideofield_elements() {
 /**
  * Implementation of hook_widget()
  */
+
+// This is what I previously had, I think it's bogus.
 function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta = 0) {
-  $element = array(
+  $element['url'] = array(
     '#type' => $field['widget']['type'],
     '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
   );
   return $element;
 }
+
+// This modified from lullabot
+/*function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta = 0) {
+ 
+  $element['url'] = array(
+    '#type' => 'textfield',
+    '#default_value' => isset($items[$delta]['url']) ? $items[$delta]['url'] : NULL,
+    '#autocomplete_path' => $element['#autocomplete_path'],
+    '#size' => !empty($field['widget']['size']) ? $field['widget']['size'] : 60,
+    '#attributes' => array('class' => 'streamingvideofield'),
+    '#maxlength' => !empty($field['max_length']) ? $field['max_length'] : NULL,
+  );
+ 
+  // Used so that hook_field('validate') knows where to
+  // flag an error in deeply nested forms.
+  if (empty($form['#parents'])) {
+    $form['#parents'] = array();
+  }
+  $element['_error_element'] = array(
+    '#type' => 'value',
+    '#value' => implode('][', array_merge($form['#parents'], array('value'))),
+  );
+ 
+  return $element;
+}*/
+
 
 function streamingvideofield_process($element, $edit, $form_state, $form) {
   $element['url'] = array(
