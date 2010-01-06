@@ -64,7 +64,7 @@ function _streamingvideofield_length_validate($element, &$form_state) {
 /**
  * Implementation of hook_field
  */
-function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page) {
+/*function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page) {
   switch ($op) {
     // Do validation on the field values here. The widget
     // will do its own validation and you cannot make any
@@ -95,7 +95,7 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
         $items[$delta]['safe'] = $streamingvideofield;
       }
   }
-}
+}*/
 
 
 /**
