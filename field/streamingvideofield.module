@@ -22,7 +22,7 @@ function streamingvideofield_field_info() {
  */
 function streamingvideofield_field_settings($op, $field) {
   switch ($op) {
-    case 'form': // It appears I need this case, but I can't find a good explanation of it 1/6
+    /*case 'form': // It appears I need this case, but I can't find a good explanation of it 1/6
       // taken from lullabot.com/articles/creating-custom-cck-fields
       $form = array();
       $form['max_length'] = array(
@@ -38,7 +38,7 @@ function streamingvideofield_field_settings($op, $field) {
       return $form;
 
     case 'save':
-      return array('max_length');
+      return array('max_length');*/
 
     case 'database columns':
       $columns = array(
@@ -46,12 +46,57 @@ function streamingvideofield_field_settings($op, $field) {
           'type' => 'varchar', 
           'length' => 64, 
           'not null' => FALSE, 
-          'sortable' => TRUE
+          'sortable' => TRUE,
+          'views' => TRUE,
         ),
       );
       return $columns;
   }
 }
+
+function _streamingvideofield_length_validate($element, &$form_state) {
+  $value = $form_state['values']['max_length'];
+  if( $value && !is_numeric($value) || $value < 1 || $value > 255 ) {
+    form_set_error('max_length', t('"Max length" must be a number between 1 and 255.')); // change this
+  }
+}
+
+/**
+ * Implementation of hook_field
+ */
+function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page) {
+  switch ($op) {
+    // Do validation on the field values here. The widget
+    // will do its own validation and you cannot make any
+    // assumptions about what kind of widget has been used,
+    // so don't validate widget values, only field values.
+    case 'validate':
+      if (is_array($items)) {
+        foreach ($items as $delta => $item) {
+          // The error_element is needed so that CCK can
+          // set an error on the right sub-element when
+          // fields are deeply nested in the form.
+          $error_element = isset($item['_error_element']) ? $item['_error_element'] : '';
+          if (is_array($item) && isset($item['_error_element'])) unset($item['_error_element']);
+          if (!empty($item['url'])) {
+            if (!empty($field['max_length']) && drupal_strlen($item['url']) > $field['max_length']) {
+              form_set_error($error_element, t('%name: the value may not be longer than %max characters.', array('%name' => $field['widget']['label'], '%max' => $field['max_length'])));
+            }
+          }
+        }
+      }
+      return $items;
+
+    // This is where you make sure that user-provided
+    // data is sanitized before being displayed.
+    case 'sanitize':
+      foreach ($items as $delta => $item) {
+        $streamingvideofield = check_plain($item['url']);
+        $items[$delta]['safe'] = $streamingvideofield;
+      }
+  }
+}
+
 
 /**
  * Implementation of hook_widget_info()
