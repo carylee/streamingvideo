@@ -24,7 +24,7 @@ function streamingvideofield_field_info() {
     'streamingvideofield' => array(
       // The human-readable label of the field that will be
       // seen in the Manage fields screen.
-      'label' => t('Example field'),
+      'label' => t('Streaming video field'),
       // A description of what type of data the field stores.
       'description' => t('Store text data in the database.'),
       // An icon to use in Panels.
@@ -305,7 +305,7 @@ function streamingvideofield_widget_info() {
     'streamingvideofield_widget' => array(
       // The human-readable label of the field that will be
       // seen in the Manage fields screen.
-      'label' => t('Example widget'),
+      'label' => t('Streaming video widget'),
       // An array of the field types this widget can be
       // used with.
       'field types' => array('streamingvideofield'),
