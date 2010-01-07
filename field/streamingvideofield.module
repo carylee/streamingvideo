@@ -422,6 +422,7 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
  
   $element['value'] = array(
     '#type' => 'textfield',
+    '#title' => 'Video url',
     '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : NULL,
     '#autocomplete_path' => $element['#autocomplete_path'],
     '#size' => !empty($field['widget']['size']) ? $field['widget']['size'] : 60,
