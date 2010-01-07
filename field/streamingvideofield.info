@@ -1,6 +1,6 @@
 ; $Id$
 name = Streaming video field
-description = "Adds a CCK field for including streaming video"
-core = 6.x
-package = CCK
+description = Defines an streaming video field type.
 dependencies[] = content
+package = CCK
+core = 6.x

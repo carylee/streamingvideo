@@ -1,70 +1,121 @@
 <?php
+// $Id$
 
 /**
- * Implementation of hook_help()
- */
-//function streamingvideofield_help
+* @file
+* An streamingvideofield to define a simple field, widget, and formatter.
+* A module could define only a field, only a widget, only a
+* formatter, or any combination. Widgets and formatters must
+* declare what kind of field they work with, which can be any
+* existing field as well as any new field the module creates.
+*/
+
+//==========================================//
+// DEFINING A FIELD
+//==========================================//
 
 /**
- * Implementation of hook_field_info()
- */
+* Implementation of hook_field_info().
+*/
 function streamingvideofield_field_info() {
   return array(
+    // The machine name of the field,
+    // no more than 32 characters.
     'streamingvideofield' => array(
-      'label' => 'Streaming Video',
-      'description' => t('Store streaming video locations (like rtmp) and embed them in nodes with the Akamai Open Video Player.'),
+      // The human-readable label of the field that will be
+      // seen in the Manage fields screen.
+      'label' => t('Example field'),
+      // A description of what type of data the field stores.
+      'description' => t('Store text data in the database.'),
+      // An icon to use in Panels.
+      'content_icon' => 'icon_content_text.png',
     ),
   );
 }
 
 /**
- * Implementation of hook_field_settings()
- */
+* Implementation of hook_field_settings().
+*/
 function streamingvideofield_field_settings($op, $field) {
   switch ($op) {
-    /*case 'form': // It appears I need this case, but I can't find a good explanation of it 1/6
-      // taken from lullabot.com/articles/creating-custom-cck-fields
+    // Create the form element to be used on the field
+    // settings form. Field settings will be the same for
+    // all shared instances of the same field and should
+    // define the way the value will be stored
+    // in the database.
+    case 'form':
       $form = array();
       $form['max_length'] = array(
         '#type' => 'textfield',
         '#title' => t('Maximum length'),
         '#default_value' => is_numeric($field['max_length']) ? $field['max_length'] : 255,
         '#required' => FALSE,
-
-        // Use #element_validate to validate the settings
+       
+        // Use #element_validate to validate the settings.
         '#element_validate' => array('_streamingvideofield_length_validate'),
         '#description' => t('The maximum length of the field in characters. Must be a number between 1 and 255'),
       );
       return $form;
-
+     
+    // Return an array of the names of the field settings
+    // defined by this module. These are the items that
+    // CCK will store in the field definition
+    // and they will be available in the $field array.
+    // This should match the items defined in 'form' above.
     case 'save':
-      return array('max_length');*/
+      return array('max_length');
 
+    // Define the database storage for this field using
+    // the same construct used by schema API. Most fields
+    // have only one column, but there can be any number
+    // of different columns. After the schema API values,
+    // add two optional values to each column,
+    //  'views', to define a Views field
+    //  'sortable', to add a Views sort field
     case 'database columns':
-      $columns = array(
-        'value' => array(
-          'type' => 'varchar', 
-          'length' => 64, 
-          'not null' => FALSE, 
-          'sortable' => TRUE,
-          'views' => TRUE,
-        ),
+      $columns['value'] = array(
+        'type' => 'varchar',
+        'length' => is_numeric($field['max_length']) ? $field['max_length'] : 255,
+        'not null' => FALSE,
+        'sortable' => TRUE,
+        'views' => TRUE,
       );
       return $columns;
-  }
-}
 
-function _streamingvideofield_length_validate($element, &$form_state) {
-  $value = $form_state['values']['max_length'];
-  if( $value && !is_numeric($value) || $value < 1 || $value > 255 ) {
-    form_set_error('max_length', t('"Max length" must be a number between 1 and 255.')); // change this
+    // Optional: Make changes to the default $data array
+    // created for Views. Omit this if no changes are
+    // needed, use it to add a custom handler or make
+    // other changes.
+    case 'views data':
+      // Start with the $data created by CCK
+      // and alter it as needed. The following
+      // code illustrates how you would retrieve
+      // the necessary data.
+      $data = content_views_field_views_data($field);
+      $db_info = content_database_info($field);
+      $table_alias = content_views_tablename($field);
+      $field_data = $data[$table_alias][$field['field_name'] .'_value'];
+      // Make changes to $data as needed here.
+      return $data;
   }
 }
 
 /**
- * Implementation of hook_field
- */
-/*function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page) {
+* Custom validation of settings values.
+*
+* Create callbacks like this to do settings validation.
+*/
+function _streamingvideofield_length_validate($element, &$form_state) {
+  $value = $form_state['values']['max_length'];
+  if ($value && !is_numeric($value)|| $value < 1 || $value > 255) {
+    form_set_error('max_length', t('"Max length" must be a number between 1 and 255.'));
+  }
+}
+
+/**
+* Implementation of hook_field().
+*/
+function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page) {
   switch ($op) {
     // Do validation on the field values here. The widget
     // will do its own validation and you cannot make any
@@ -95,51 +146,253 @@ function _streamingvideofield_length_validate($element, &$form_state) {
         $items[$delta]['safe'] = $streamingvideofield;
       }
   }
-}*/
-
+}
 
 /**
- * Implementation of hook_widget_info()
- */
-function streamingvideofield_widget_info() {
+* Implementation of hook_content_is_empty().
+*
+* CCK has no way to know if something like a zero is
+* an empty value or a valid value, so return
+* TRUE or FALSE to a populated field $item array.
+* CCK uses this to remove empty multi-value elements
+* from forms.
+*/
+function streamingvideofield_content_is_empty($item, $field) {
+  if (empty($item['value'])) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+* Implementation of hook content_generate().
+*
+* Optional, provide dummy value for nodes created
+* by the Devel Generate module.
+*/
+function streamingvideofield_content_generate($node, $field) {
+  $node_field = array();
+  // Generate a value that respects max_length.
+  if (empty($field['max_length'])) {
+    $field['max_length'] = 12;
+  }
+  $node_field['value'] = user_password($field['max_length']);
+  return $node_field;
+}
+
+/**
+* Implementation of hook_token_list()
+* and hook_token_values().
+*
+* Optional, provide token values for this field.
+*/
+function streamingvideofield_token_list($type = 'all') {
+  if ($type == 'field' || $type == 'all') {
+    $tokens = array();
+
+    $tokens['streamingvideofield']['raw']       = t('Raw, unfiltered text');
+    $tokens['streamingvideofield']['formatted'] = t('Formatted and filtered text');
+
+    return $tokens;
+  }
+}
+
+function streamingvideofield_token_values($type, $object = NULL) {
+  if ($type == 'field') {
+    $item = $object[0];
+
+    $tokens['raw']  = $item['value'];
+    $tokens['formatted'] = isset($item['view']) ? $item['view'] : '';
+    return $tokens;
+  }
+}
+
+//==========================================//
+// DEFINING A FORMATTER
+//==========================================//
+
+/**
+* Implementation of hook_theme().
+*/
+function streamingvideofield_theme() {
   return array(
-    'streamingvideofield' => array(
-      'label' => 'Streaming Video',
+    // Themes for the formatters.
+    'streamingvideofield_formatter_default' => array(
+      'arguments' => array('element' => NULL),
+    ),
+    'streamingvideofield_formatter_plain' => array(
+      'arguments' => array('element' => NULL),
+    ),
+  );
+}
+
+/**
+* Implementation of hook_field_formatter_info().
+*
+* All fields should have a 'default' formatter.
+* Any number of other formatters can be defined as well.
+* It's nice for there always to be a 'plain' option
+* for the raw value, but that is not required.
+*
+*/
+function streamingvideofield_field_formatter_info() {
+  return array(
+    // The machine name of the formatter.
+    'default' => array(
+      // The human-readable label shown on the Display
+      // fields screen.
+      'label' => t('Default'),
+      // An array of the field types this formatter
+      // can be used on.
+      'field types' => array('streamingvideofield'),
+      // CONTENT_HANDLE_CORE:   CCK will pass the formatter
+      // a single value.
+      // CONTENT_HANDLE_MODULE: CCK will pass the formatter
+      // an array of all the values. None of CCK's core
+      // formatters use multiple values, that is an option
+      // available to other modules that want it.
+      'multiple values' => CONTENT_HANDLE_CORE,
+    ),
+    'plain' => array(
+      'label' => t('Plain text'),
       'field types' => array('streamingvideofield'),
       'multiple values' => CONTENT_HANDLE_CORE,
-      'callbacks' => array(
-        'default value' => CONTENT_CALLBACK_DEFAULT,
-      ),
-      'description' => t('An widget for a streaming video field?'),
-    ),
-  );
-}
-
-function streamingvideofield_elements() {
-  return array(
-    'streamingvideofield_text' => array(
-      '#input' => TRUE,
-      '#columns' => array('value'),
-      '#process' => array('streamingvideofield_process'),
     ),
   );
 }
 
 /**
- * Implementation of hook_widget()
- */
-
-// This is what I previously had, I think it's bogus.
-function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta = 0) {
-  $element['value'] = array(
-    '#type' => $field['widget']['type'],
-    '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
-  );
-  return $element;
+* Theme function for 'default' streamingvideofield field formatter.
+*
+* $element['#item']: the sanitized $delta value for the item,
+* $element['#field_name']: the field name,
+* $element['#type_name']: the $node->type,
+* $element['#formatter']: the $formatter_name,
+* $element'#node']: the $node,
+* $element['#delta']: the delta of this item, like '0',
+*
+*/
+function theme_streamingvideofield_formatter_default($element) {
+  return $element['#item']['safe'];
 }
 
-// This modified from lullabot
-/*function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta = 0) {
+/**
+* Theme function for 'plain' streamingvideofield field formatter.
+*/
+function theme_streamingvideofield_formatter_plain($element) {
+  return strip_tags($element['#item']['safe']);
+}
+
+//==========================================//
+// DEFINING A WIDGET
+//==========================================//
+
+/**
+* Implementation of hook_widget_info().
+*
+* Here we indicate that the content module will handle
+* the default value and multiple values for these widgets.
+*
+* Callbacks can be omitted if default handing is used.
+* They're included here just so this module can be used
+* as an streamingvideofield for custom modules that might do things
+* differently.
+*/
+function streamingvideofield_widget_info() {
+  return array(
+    // The machine name of the widget, no more than 32
+    // characters.
+    'streamingvideofield_widget' => array(
+      // The human-readable label of the field that will be
+      // seen in the Manage fields screen.
+      'label' => t('Example widget'),
+      // An array of the field types this widget can be
+      // used with.
+      'field types' => array('streamingvideofield'),
+      // Who will handle multiple values, default is core.
+      // 'CONTENT_HANDLE_MODULE' means the module does it.
+      // See optionwidgets for an streamingvideofield of a module that
+      // handles its own multiple values.
+      'multiple values' => CONTENT_HANDLE_CORE,
+      'callbacks' => array(
+        // Who will create the default value, default is core.
+        // 'CONTENT_CALLBACK_CUSTOM' means the module does it.
+        // 'CONTENT_CALLBACK_NONE' means this widget has
+        // no default value.
+        'default value' => CONTENT_CALLBACK_DEFAULT,
+      ),
+    ),
+  );
+}
+
+/**
+* Implementation of hook_widget_settings().
+*/
+function streamingvideofield_widget_settings($op, $widget) {
+  switch ($op) {
+    // Create the form element to be used on the widget
+    // settings form. Widget settings can be different
+    // for each shared instance of the same field and
+    // should define the way the value is displayed to
+    // the user in the edit form for that content type.
+    case 'form':
+      $form = array();
+      $size = (isset($widget['size']) && is_numeric($widget['size'])) ? $widget['size'] : 60;
+      $form['size'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Size of textfield'),
+        '#default_value' => $size,
+        '#element_validate' => array('_element_validate_integer_positive'),
+        '#required' => TRUE,
+      );
+      return $form;
+
+    // Return an array of the names of the widget settings
+    // defined by this module. These are the items that
+    // CCK will store in the widget definition and they
+    // will be available in the $field['widget'] array.
+    // This should match the items defined in 'form' above.
+    case 'save':
+      return array('size');
+  }
+}
+
+/**
+* Implementation of hook_widget().
+*
+* Attach a single form element to the form.
+*
+* CCK core fields only add a stub element and builds
+* the complete item in #process so reusable elements
+* created by hook_elements can be plugged into any
+* module that provides valid $field information.
+*
+* Custom widgets that don't care about using hook_elements
+* can be built out completely at this time.
+*
+* If there are multiple values for this field and CCK is
+* handling multiple values, the content module will call
+* this function as many times as needed.
+*
+* @param $form
+*   the entire form array,
+*   $form['#node'] holds node information
+* @param $form_state
+*   the form_state,
+*   $form_state['values'][$field['field_name']]
+*   holds the field's form values.
+* @param $field
+*   the field array
+* @param $items
+*   array of default values for this field
+* @param $delta
+*   the order of this item in the array of
+*   subelements (0, 1, 2, etc)
+*
+* @return
+*   the form item for a single element for this field
+*/
+function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta = 0) {
  
   $element['value'] = array(
     '#type' => 'textfield',
@@ -161,37 +414,5 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
   );
  
   return $element;
-}*/
-
-
-function streamingvideofield_process($element, $edit, $form_state, $form) {
-  $element['value'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Video url'),
-    '#default_value' => !empty($element['#value']['value']) ? $element['#value']['value'] : '',
-    '#required' => $element['#required'],
-  );
-  return $element;
 }
-
-
-/**
- * Implementation of hook_content_is_empty()
- */
-function streamingvideofield_content_is_empty( $item, $field) {
-  return empty($item['value']);
-}
-
-/**
- * Implementation of hook_field_formatter_info()
- */
-function streamingvideofield_field_formatter_info() {
-  require_once(drupal_get_path('module', 'streamingvideo') . '/streamingvideo.inc');
-  return array(
-    'default' => array(
-      'label' => t('Streaming Video URI'),
-      'field types' => array('streamingvideofield'),
-    ),
-  );
-}
-
+?>
