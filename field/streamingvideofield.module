@@ -284,8 +284,7 @@ function streamingvideofield_field_formatter_info() {
 */
 function theme_streamingvideofield_formatter_default($element) {
   $url = $element['#item']['safe'];
-  $embed =  streamingvideo_embedcode( $url );
-  return "<script type='text/javascript'>$embed</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
+  return streamingvideo_embedcode( $url, true );
 }
 
 /**
