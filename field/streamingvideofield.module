@@ -122,6 +122,21 @@ function _streamingvideofield_length_validate($element, &$form_state) {
   }
 }
 
+// Working on this to validate urls
+function _streamingvideofield_url_validate($element, &$form_state) {
+  $pattern = "^((http|rtmp|https|ftp|rtsp|pnm|mms|rtspu|rtspt|mmsu|mmst)\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$";
+  pr( $form_state );
+  if( !preg_match($pattern, $form_state['values'] ) {
+  }
+}
+
+// I just through this in for debugging help ~Cary Thu Jan  7 16:54:24 CST 2010
+function pr( $foo ) {
+  echo "<pre>";
+  print_r( $foo );
+  echo "</pre>";
+}
+
 /**
 * Implementation of hook_field().
 */
