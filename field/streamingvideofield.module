@@ -1,6 +1,8 @@
 <?php
 // $Id$
 
+require_once('../streamingvideo.inc');
+
 /**
 * @file
 * An streamingvideofield to define a simple field, widget, and formatter.
