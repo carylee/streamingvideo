@@ -15,6 +15,12 @@
 //==========================================//
 // DEFINING A FIELD
 //==========================================//
+/**
+ * Todo for Cary
+ * Remove validation of 255 character limit
+ * Add labels to make things make sense
+ * Add formatter to replace url with video
+ */
 
 /**
 * Implementation of hook_field_info().
