@@ -10,6 +10,8 @@
 * existing field as well as any new field the module creates.
 */
 
+// The majority of this is borrowed from http://www.lullabot.com/articles/creating-custom-cck-fields
+
 //==========================================//
 // DEFINING A FIELD
 //==========================================//

@@ -2,6 +2,8 @@
 // $Id$
 // Notify CCK when this module is enabled, disabled, installed,
 // and uninstalled so CCK can do any necessary preparation or cleanup.
+
+// The majority of this is borrowed from http://www.lullabot.com/articles/creating-custom-cck-fields
 /**
 * @file
 * Implementation of hook_install().
