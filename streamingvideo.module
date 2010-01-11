@@ -26,11 +26,21 @@ function streamingvideo_perm() {
  * Implementation of hook_init()
  */
 function streamingvideo_init() {
-  //$path = drupal_get_path('module', 'streamingvideo');
-  //$path .= "/swfobject/swfobject.js";
-  //$path = base_path();
-  $path = 'sites/all/libraries/swfobject/swfobject.js';
-  drupal_add_js($path, 'module');
+  $swfobjectPath = 'sites/all/libraries/swfobject/';
+  $swfobject = $swfobjectPath . 'swfobject.js';
+
+  $ovpPath = 'sites/all/libraries/ovp/';
+  $ovp = $ovpPath . 'AkamaiMultiPlayerExample.swf';
+  
+  if(!file_exists( $ovp ) {
+    drupal_set_message(t('%file1 was not found in %directory, download the <a href="http://caryme.com/files/AkamaiMultiPlayerExample.swf">Akamai Open Video Player Multiplayer</a>.', array('%file1' => 'AkamaiMultiPlayerExample.swf', '%directory' => $ovpPath), 'error'));
+  }
+
+  if(!file_exists( $swfobject ) ) {
+    drupal_set_message(t('%file1 was not found in %directory, download <a href="http://code.google.com/p/swfobject/">swfobject</a> from Google Code.', array('%file1' => 'swfobject.js', '%directory' => $swfobjectPath), 'error'));
+  }
+
+  drupal_add_js($swfobject, 'module');
 }
 
 /**
