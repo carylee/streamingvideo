@@ -26,8 +26,10 @@ function streamingvideo_perm() {
  * Implementation of hook_init()
  */
 function streamingvideo_init() {
-  $path = drupal_get_path('module', 'streamingvideo');
-  $path .= "/swfobject/swfobject.js";
+  //$path = drupal_get_path('module', 'streamingvideo');
+  //$path .= "/swfobject/swfobject.js";
+  $path = base_path();
+  $path .= '/sites/all/libraries/swfobject/swfobject.js';
   drupal_add_js($path, 'module');
 }
 
