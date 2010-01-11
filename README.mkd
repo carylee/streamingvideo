@@ -1,0 +1,10 @@
+Description
+===========
+The streaming video module uses the Akamai Open Video Player to play video of many types, specializing in flash video streams.
+
+Installation
+============
+# Download a compiled version of the akamai open video player [here](http://caryme.com/files/AkamaiMultiPlayerExample.swf "Right click and save as")
+# Download swfobject 2.2 from google code [here](http://code.google.com/p/swfobject/)
+# Put the open video player at /sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf
+# Move swfobject.js to /sites/all/libraries/swfobject/swfobject.js
