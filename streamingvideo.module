@@ -32,7 +32,7 @@ function streamingvideo_init() {
   $ovpPath = 'sites/all/libraries/ovp/';
   $ovp = $ovpPath . 'AkamaiMultiPlayerExample.swf';
   
-  if(!file_exists( $ovp ) {
+  if(!file_exists( $ovp )) {
     drupal_set_message(t('%file1 was not found in %directory, download the <a href="http://caryme.com/files/AkamaiMultiPlayerExample.swf">Akamai Open Video Player Multiplayer</a>.', array('%file1' => 'AkamaiMultiPlayerExample.swf', '%directory' => $ovpPath), 'error'));
   }
 
