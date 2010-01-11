@@ -19,9 +19,8 @@ require_once(drupal_get_path('module', 'streamingvideo') . '/streamingvideo.inc'
 //==========================================//
 /**
  * Todo for Cary
- * Remove validation of 255 character limit
+ * Remove validation of 255 character limit?
  * Add labels to make things make sense
- * Add formatter to replace url with video
  */
 
 /**
