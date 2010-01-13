@@ -64,7 +64,7 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
           return $text;
 
         case 'process':
-          $pattern = '/\[ovp:([A-Za-z:\/0-9._-?&=]*)]/';
+          $pattern = '/\[ovp:([A-Za-z:\/0-9._\-?&=]*)]/';
           $replacement = "";
           //$replacement = "this is my replacement for the text";
           $num_matches = preg_match( $pattern, $text, $matches );
