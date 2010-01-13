@@ -21,8 +21,8 @@ The streamingvideofield module defines a CCK field and a formatter. This allows 
 
 Installation
 ============
-1. Download a compiled version of the akamai open video player [here](http://caryme.com/files/AkamaiMultiPlayerExample.swf "Right click and save as")
-2. Download swfobject 2.2 from google code [here](http://code.google.com/p/swfobject/)
+1. Download a compiled version of the akamai open video player http://caryme.com/files/AkamaiMultiPlayerExample.swf
+2. Download swfobject 2.2 from google code http://code.google.com/p/swfobject/
 3. Put the open video player at /sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf
 4. Move swfobject.js to /sites/all/libraries/swfobject/swfobject.js
 
