@@ -299,6 +299,7 @@ function streamingvideofield_field_formatter_info() {
 function theme_streamingvideofield_formatter_default($element) {
   $ovpstring = $element['#item']['safe'];
   $url = streamingvideo_extracturi( $ovpstring );
+  pr($ovpstring);
   $options = streamingvideo_parseoptions( $ovpstring );
   $options['html'] = true;
   pr($options);
