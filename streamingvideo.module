@@ -125,25 +125,6 @@ function streamingvideo_parseoptions( $ovpstring ) {
   return $options;
 }
 
-/*function streamingvideo_extractwidth( $ovpstring ) {
-  $pattern = "/width=(\d+),/";
-  if( preg_match( $pattern, $ovpstring, $matches ) ) {
-    return $matches[1];
-  }
-  else
-    return false;
-}
-
-function streamingvideo_extractheight( $ovpstring ) {
-  $pattern = "/height=(\d+),/";
-  if( preg_match( $pattern, $ovpstring, $matches ) ) {
-    return $matches[1];
-  }
-  else
-    return false;
-}*/
-
-
 function streamingvideo_admin() {
   $form = array();
 
