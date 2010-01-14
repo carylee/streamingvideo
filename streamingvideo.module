@@ -73,8 +73,7 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
           // Find width and height, if given
 
           $location = streamingvideo_extracturi( $ovpstring );
-          $options['width'] = streamingvideo_extractwidth( $ovpstring );
-          $options['height'] = streamingvideo_extractheight( $ovpstring );
+          $options = streamingvideo_parseoptions( $ovpstring );
           $options['html'] = false;
 
           $embed = streamingvideo_embedcode( $location, $options );
@@ -100,7 +99,30 @@ function streamingvideo_extracturi( $ovpstring ) {
     return false;
 }
 
-function streamingvideo_extractwidth( $ovpstring ) {
+function streamingvideo_parseoptions( $ovpstring ) {
+  $options = array();
+  if( preg_match( '/width=(\d+),/', $ovpstring, $widthMatches ) )
+    $options['width'] = $widthMatches[1];
+
+  if( preg_match( '/height=(\d+),/', $ovpstring, $heightMatches) )
+    $options['height'] = $heightMatches[1];
+
+  if( preg_match( '/allowfullscreen=(true|false),/', $ovpstring, $fullscreenMatches ) )
+    $options['allowfullscreen'] = $fullscreenMatches[1];
+
+  if( preg_match( '/autostart=(true|false),/', $ovpstring, $autostart ) )
+    $options['autostart'] = $autostart[1];
+
+  if( preg_match( '/scalemode=(fit|stretch|native|nativeorsmaller),/', $ovpstring, $scalemode))
+    $options['scalemode'] = $scalemode[1];
+
+  if( preg_match( '/mode=(sidebyside|overlay),/', $ovpstring, $mode ))
+    $options['mode'] = $mode[1];
+
+  return $options;
+}
+
+/*function streamingvideo_extractwidth( $ovpstring ) {
   $pattern = "/width=(\d+),/";
   if( preg_match( $pattern, $ovpstring, $matches ) ) {
     return $matches[1];
@@ -116,7 +138,7 @@ function streamingvideo_extractheight( $ovpstring ) {
   }
   else
     return false;
-}
+}*/
 
 
 function streamingvideo_admin() {
