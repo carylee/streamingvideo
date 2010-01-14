@@ -103,7 +103,7 @@ function streamingvideo_extracturi( $ovpstring ) {
 function streamingvideo_extractwidth( $ovpstring ) {
   $pattern = "/width=(\d+),/";
   if( preg_match( $pattern, $ovpstring, $matches ) ) {
-    return $matches[2];
+    return $matches[1];
   }
   else
     return NULL;
