@@ -41,5 +41,5 @@ scalemode (fit, stretch, native, or nativeorsmaller)
 mode (sidebyside or overlay)
 
 These options may be presented in any order
-mode (
 
+When options are left undefined, they will default to the global settings which can be changed at admin/settings/streamingvideo
