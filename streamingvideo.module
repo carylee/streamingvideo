@@ -65,18 +65,17 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
 
         case 'process':
           //$pattern = '/\[ovp:([A-Za-z:\/0-9._\-?&=]*)]/';
-          $pattern = "/\[ovp:([\d\w$\-.+!*'\(),\":\/.?&=]*)]/";
+          //$pattern = "/\[ovp:([\d\w$\-.+!*'\(),\":\/.?&=]*)]/";
+          $pattern = '/\[ovp:(.*?)]/';
           $num_matches = preg_match( $pattern, $text, $matches );
           $ovpstring = $matches[0];
 
           // Find width and height, if given
 
+          $location = streamingvideo_extracturi( $ovpstring );
           $options['width'] = streamingvideo_extractwidth( $ovpstring );
           $options['height'] = streamingvideo_extractheight( $ovpstring );
           $options['html'] = false;
-
-
-          $location = $matches[1];
 
           $embed = streamingvideo_embedcode( $location, $options );
 
@@ -90,6 +89,15 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
         }
       break;
   }
+}
+
+function streamingvideo_extracturi( $ovpstring ) {
+  $pattern = "/(http|rtmp|rtmpt|rtmpe|rtmpte)://([\d\w$\-.+!*'\"():\/.?&=]*)/";
+  if( preg_match( $pattern, $ovpstring, $matches ) ){
+    return $matches[0];
+  }
+  else
+    return NULL;
 }
 
 function streamingvideo_extractwidth( $ovpstring ) {
