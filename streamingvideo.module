@@ -66,12 +66,19 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
         case 'process':
           //$pattern = '/\[ovp:([A-Za-z:\/0-9._\-?&=]*)]/';
           $pattern = "/\[ovp:([\d\w$\-.+!*'\(),\":\/.?&=]*)]/";
-          $replacement = "";
-          //$replacement = "this is my replacement for the text";
           $num_matches = preg_match( $pattern, $text, $matches );
+          $ovpstring = $matches[0];
+
+          // Find width and height, if given
+
+          $options['width'] = streamingvideo_extractwidth( $ovpstring );
+          $options['height'] = streamingvideo_extractheight( $ovpstring );
+          $options['html'] = false;
+
+
           $location = $matches[1];
 
-          $embed = streamingvideo_embedcode( $location );
+          $embed = streamingvideo_embedcode( $location, $options );
 
           $replace_me = "<script type='text/javascript'>$embed</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
           //drupal_add_js( $embed, 'inline');
@@ -84,6 +91,25 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
       break;
   }
 }
+
+function streamingvideo_extractwidth( $ovpstring ) {
+  $pattern = "/width=(\d+),/";
+  if( preg_match( $pattern, $ovpstring, $matches ) ) {
+    return $matches[2];
+  }
+  else
+    return NULL;
+}
+
+function streamingvideo_extractheight( $ovpstring ) {
+  $pattern = "/height=(\d+),/";
+  if( preg_match( $pattern, $ovpstring, $matches ) ) {
+    return $matches[2];
+  }
+  else
+    return NULL;
+}
+
 
 function streamingvideo_admin() {
   $form = array();

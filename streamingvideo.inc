@@ -1,7 +1,7 @@
 <?php
 // $Id$
 
-function streamingvideo_embedcode( $src, $withhtml=false ) {
+function streamingvideo_embedcode( $src, $options ) {
   $player = base_path() . "sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf";
 
   // Load the variables
@@ -33,7 +33,7 @@ function streamingvideo_embedcode( $src, $withhtml=false ) {
     }; 
     swfobject.embedSWF(\"$player\", 'myPlayerGoesHere', '$width', '$height', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);";
 
-  if( $withhtml ) {
+  if( isset($options['html']) && $options['html']) {
     $embed = "<script type='text/javascript'>$embed</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
   }
 

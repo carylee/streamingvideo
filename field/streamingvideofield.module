@@ -298,7 +298,8 @@ function streamingvideofield_field_formatter_info() {
 */
 function theme_streamingvideofield_formatter_default($element) {
   $url = $element['#item']['safe'];
-  return streamingvideo_embedcode( $url, true );
+  $options['html'] = true;
+  return streamingvideo_embedcode( $url, $options );
 }
 
 /**
