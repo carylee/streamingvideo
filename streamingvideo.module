@@ -97,7 +97,7 @@ function streamingvideo_extracturi( $ovpstring ) {
     return $matches[0];
   }
   else
-    return NULL;
+    return false;
 }
 
 function streamingvideo_extractwidth( $ovpstring ) {
@@ -106,7 +106,7 @@ function streamingvideo_extractwidth( $ovpstring ) {
     return $matches[1];
   }
   else
-    return NULL;
+    return false;
 }
 
 function streamingvideo_extractheight( $ovpstring ) {
@@ -115,7 +115,7 @@ function streamingvideo_extractheight( $ovpstring ) {
     return $matches[1];
   }
   else
-    return NULL;
+    return false;
 }
 
 
