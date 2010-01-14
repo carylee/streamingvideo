@@ -123,7 +123,7 @@ function _streamingvideofield_length_validate($element, &$form_state) {
 
 // Working on this to validate urls
 function _streamingvideofield_url_validate($element, &$form_state) {
-  $pattern = "^((http|rtmp|https|ftp|rtsp|pnm|mms|rtspu|rtspt|mmsu|mmst)\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$";
+  $pattern = "^((http|rtmp|rtmpt|rtmpe|rtmpte|https)\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$";
   pr( $form_state );
   if( !preg_match($pattern, $form_state['values'] )) {
   }
