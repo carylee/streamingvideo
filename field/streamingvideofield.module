@@ -301,9 +301,8 @@ function theme_streamingvideofield_formatter_default($element) {
   $url = streamingvideo_extracturi( $ovpstring );
   $options = streamingvideo_parseoptions( $ovpstring );
   $options['html'] = true;
-  $embed = streamingvideo_embedcode( $url, $options );
-  pr($embed);
-  return $embed;
+  pr($options);
+  return streamingvideo_embedcode( $url, $options );
 }
 
 /**
