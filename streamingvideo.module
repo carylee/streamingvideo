@@ -92,7 +92,7 @@ function streamingvideo_filter($op, $delta = 0, $format = -1, $text = '') {
 }
 
 function streamingvideo_extracturi( $ovpstring ) {
-  $pattern = "/(http|rtmp|rtmpt|rtmpe|rtmpte)://([\d\w$\-.+!*'\"():\/.?&=]*)/";
+  $pattern = "/(http|rtmp|rtmpt|rtmpe|rtmpte):\/\/([\d\w$\-.+!*'\"():\/.?&=]*)/";
   if( preg_match( $pattern, $ovpstring, $matches ) ){
     return $matches[0];
   }
