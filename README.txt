@@ -30,4 +30,16 @@ Usage
 =====
 Main streaming video module
 ---------------------------
-The streaming video format is: [ovp:uri] where uri is a valid streaming video resource.
+The streaming video format is: [ovp:option=value,option=value,uri] where uri is a valid streaming video resource.
+The options can be any of the following:
+width (number in pixels)
+height (number in pixels)
+themecolor (6-character hexidecimal color code)
+autostart (true or false)
+allowfullscreen (true or false)
+scalemode (fit, stretch, native, or nativeorsmaller)
+mode (sidebyside or overlay)
+
+These options may be presented in any order
+mode (
+
