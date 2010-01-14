@@ -33,7 +33,7 @@ function streamingvideo_embedcode( $src, $options ) {
       name: \"myPlayer\", 
       allowFullScreen: \"$allowfullscreen\" 
     }; 
-    swfobject.embedSWF(\"$player\", 'myPlayerGoesHere', '" . $options['width'] . "', '" $options['height'] . "', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);";
+    swfobject.embedSWF(\"$player\", 'myPlayerGoesHere', '" . $options['width'] . "', '" . $options['height'] . "', '9.0.0', 'expressInstall.swf', flashvars, params, attributes);";
 
   if( isset($options['html']) && $options['html']) {
     $embed = "<script type='text/javascript'>$embed</script><div id='myPlayerGoesHere'><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a></div>";
