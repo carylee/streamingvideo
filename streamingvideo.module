@@ -119,6 +119,9 @@ function streamingvideo_parseoptions( $ovpstring ) {
   if( preg_match( '/mode=(sidebyside|overlay),/', $ovpstring, $mode ))
     $options['mode'] = $mode[1];
 
+  if( preg_match( '/themecolor=([0-9a-fA-F]{6}),', $ovpstring, $themecolor))
+    $options['themecolor'] = $themecolor[1];
+
   return $options;
 }
 
