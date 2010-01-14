@@ -52,3 +52,38 @@ function streamingvideo_embedcode( $src, $options ) {
 
   return $embed;
 }
+
+function streamingvideo_extracturi( $ovpstring ) {
+  $pattern = "/(http|rtmp|rtmpt|rtmpe|rtmpte):\/\/([\d\w$\-.+!*'\"():\/.?&=]*)/";
+  if( preg_match( $pattern, $ovpstring, $matches ) ){
+    return $matches[0];
+  }
+  else
+    return false;
+}
+
+function streamingvideo_parseoptions( $ovpstring ) {
+  $options = array();
+  if( preg_match( '/width=(\d+),/', $ovpstring, $widthMatches ) )
+    $options['width'] = $widthMatches[1];
+
+  if( preg_match( '/height=(\d+),/', $ovpstring, $heightMatches) )
+    $options['height'] = $heightMatches[1];
+
+  if( preg_match( '/allowfullscreen=(true|false),/', $ovpstring, $fullscreenMatches ) )
+    $options['allowfullscreen'] = $fullscreenMatches[1];
+
+  if( preg_match( '/autostart=(true|false),/', $ovpstring, $autostart ) )
+    $options['autostart'] = $autostart[1];
+
+  if( preg_match( '/scalemode=(fit|stretch|native|nativeorsmaller),/', $ovpstring, $scalemode))
+    $options['scalemode'] = $scalemode[1];
+
+  if( preg_match( '/mode=(sidebyside|overlay),/', $ovpstring, $mode ))
+    $options['mode'] = $mode[1];
+
+  if( preg_match( '/themecolor=([0-9a-fA-F]{6}),/', $ovpstring, $themecolor))
+    $options['themecolor'] = $themecolor[1];
+
+  return $options;
+}
