@@ -385,6 +385,13 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#element_validate' => array('_element_validate_integer_positive'),
         '#required' => TRUE,
       );
+      $form['width'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Width of player'),
+        '#default_value' => variable_get('streamingvideo_width', 640),
+        //'#element_validate add this for validation
+        '#required' => TRUE,
+      );
       return $form;
 
     // Return an array of the names of the widget settings
@@ -393,7 +400,7 @@ function streamingvideofield_widget_settings($op, $widget) {
     // will be available in the $field['widget'] array.
     // This should match the items defined in 'form' above.
     case 'save':
-      return array('size');
+      return array('size', 'width');
   }
 }
 
