@@ -67,7 +67,7 @@ function streamingvideofield_field_settings($op, $field) {
 
       $form['width'] = array(
         '#type' => 'textfield',
-        '#title' => t('Maximum length'),
+        '#title' => t('Player width'),
         '#default_value' => is_numeric($field['width']) ? $field['width'] : variable_get('streamingvideo_width', 640),
         '#required' => FALSE,
         // No validation just yet (use #element_validate when ready)
