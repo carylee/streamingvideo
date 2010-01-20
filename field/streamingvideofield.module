@@ -64,6 +64,16 @@ function streamingvideofield_field_settings($op, $field) {
         '#element_validate' => array('_streamingvideofield_length_validate'),
         '#description' => t('The maximum length of the field in characters. Must be a number between 1 and 255'),
       );
+
+      $form['width'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Maximum length'),
+        '#default_value' => is_numeric($field['width']) ? $field['width'] : variable_get('streamingvideo_width', 640),
+        '#required' => FALSE,
+        // No validation just yet (use #element_validate when ready)
+        '#description' => t('The width of the player in pixels.'),
+      );
+
       return $form;
      
     // Return an array of the names of the field settings
@@ -72,7 +82,7 @@ function streamingvideofield_field_settings($op, $field) {
     // and they will be available in the $field array.
     // This should match the items defined in 'form' above.
     case 'save':
-      return array('max_length');
+      return array('max_length', 'width');
 
     // Define the database storage for this field using
     // the same construct used by schema API. Most fields
@@ -81,6 +91,8 @@ function streamingvideofield_field_settings($op, $field) {
     // add two optional values to each column,
     //  'views', to define a Views field
     //  'sortable', to add a Views sort field
+
+    // I'm not sure if the width has to be saved in the database... It would make sense, but perhaps not
     case 'database columns':
       $columns['value'] = array(
         'type' => 'varchar',
