@@ -405,7 +405,7 @@ function streamingvideofield_widget_settings($op, $widget) {
         //'#element_validate add this for validation
         '#required' => TRUE,
       );
-      $height = (isset($widget['height'])) ? $widget['height'] : variable_get('streamingvideo_height', 640);
+      $height = (isset($widget['height'])) ? $widget['height'] : variable_get('streamingvideo_height', 480);
       $form['height'] = array(
         '#type' => 'textfield',
         '#title' => t('Height of player'),
@@ -429,7 +429,7 @@ function streamingvideofield_widget_settings($op, $widget) {
     // will be available in the $field['widget'] array.
     // This should match the items defined in 'form' above.
     case 'save':
-      return array('size', 'width');
+      return array('size', 'width', 'height');
   }
 }
 
