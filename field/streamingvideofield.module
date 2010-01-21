@@ -313,7 +313,7 @@ function theme_streamingvideofield_formatter_default($element) {
   $ovpstring = $element['#item']['safe'];
   $url = streamingvideo_extracturi( $ovpstring );
   $options = streamingvideo_parseoptions( $ovpstring );
-  pr($element);
+  //pr($element);
   if(isset($element['width']))
     $options['width'] = $element['width'];
   $options['html'] = true;
