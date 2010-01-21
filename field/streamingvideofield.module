@@ -178,6 +178,7 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
     // This is where you make sure that user-provided
     // data is sanitized before being displayed.
     case 'sanitize':
+     // pr($field); // 'width' definitely gets to this point ($field['widget']['width'])
       foreach ($items as $delta => $item) {
         $streamingvideofield = check_plain($item['value']);
         $items[$delta]['safe'] = $streamingvideofield;
@@ -456,11 +457,11 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
     '#maxlength' => !empty($field['max_length']) ? $field['max_length'] : NULL,
   );
  
-  $element['width'] = array(
+  /*$element['width'] = array(
     '#type' => 'textfield',
     '#title' => 'Width of player',
     '#value' => $field['widget']['width'],
-  );
+  );*/
   // Used so that hook_field('validate') knows where to
   // flag an error in deeply nested forms.
   if (empty($form['#parents'])) {
