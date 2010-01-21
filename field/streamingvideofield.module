@@ -413,14 +413,18 @@ function streamingvideofield_widget_settings($op, $widget) {
         //'#element_validate add this for validation
         '#required' => TRUE,
       );
-      /*$width = (isset($widget['width'])) ? $widget['width'] : variable_get('streamingvideo_width', 640);
-      $form['width'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Width of player'),
-        '#default_value' => $width,
+      $autostart = (isset($widget['autostart'])) ? $widget['autostart'] : variable_get('streamingvideo_autostart', 'false');
+      $form['autostart'] = array(
+        '#type' => 'radios',
+        '#title' => t('Autostart video?'),
+        '#default_value' => $autostart,
         //'#element_validate add this for validation
+        '#options' => array(
+          'true' => t('Yes'),
+          'false' => t('No'),
+        ),
         '#required' => TRUE,
-      );*/
+      );
       return $form;
 
     // Return an array of the names of the widget settings
@@ -429,7 +433,7 @@ function streamingvideofield_widget_settings($op, $widget) {
     // will be available in the $field['widget'] array.
     // This should match the items defined in 'form' above.
     case 'save':
-      return array('size', 'width', 'height');
+      return array('size', 'width', 'height', 'autostart');
   }
 }
 
