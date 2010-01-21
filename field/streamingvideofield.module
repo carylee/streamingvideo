@@ -320,11 +320,11 @@ function streamingvideofield_field_formatter_info() {
 function theme_streamingvideofield_formatter_default($element) {
   $ovpstring = $element['#item']['safe'];
   $url = streamingvideo_extracturi( $ovpstring );
-  $options = streamingvideo_parseoptions( $ovpstring );
   //pr($element);
-  if(isset($element['#item']['player_options']))
-    $options['width'] = $element['#item']['player_options']['width'];
-  $options['html'] = true;
+  $content_options = $element['#item']['player_options']; // load the content type level options
+  $user_options = streamingvideo_parseoptions( $ovpstring ); // Load any in-line options
+  $options = array_merge($content_options, $user_options); // Merge these two, prioritizing the in-line
+  $options['html'] = true; // yes, we want the html wrapper
   return streamingvideo_embedcode( $url, $options );
 }
 
