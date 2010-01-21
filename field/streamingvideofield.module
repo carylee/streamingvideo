@@ -187,6 +187,8 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
         // but it may work until I find a better solution
         if(isset($field['widget']['width']))
           $items[$delta]['width'] = $field['widget']['width'];
+        if(isset($field['widget']['height']))
+          $items[$delta]['height'] = $field['widget']['height'];
       }
   }
 }
