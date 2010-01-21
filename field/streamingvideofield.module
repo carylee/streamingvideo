@@ -189,6 +189,8 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
           $items[$delta]['player_options']['width'] = $field['widget']['width'];
         if(isset($field['widget']['height']))
           $items[$delta]['player_options']['height'] = $field['widget']['height'];
+        if(isset($field['widget']['autostart']))
+          $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
       }
   }
 }
