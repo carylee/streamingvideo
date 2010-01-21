@@ -182,6 +182,11 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
       foreach ($items as $delta => $item) {
         $streamingvideofield = check_plain($item['value']);
         $items[$delta]['safe'] = $streamingvideofield;
+        
+        // Cary added this - this is totally the wrong place for this
+        // but it may work until I find a better solution
+        if(isset($field['widget']['width']))
+          $items[$delta]['width'] = $field['widget']['width'];
       }
   }
 }
@@ -315,8 +320,8 @@ function theme_streamingvideofield_formatter_default($element) {
   $url = streamingvideo_extracturi( $ovpstring );
   $options = streamingvideo_parseoptions( $ovpstring );
   //pr($element);
-  if(isset($element['width']))
-    $options['width'] = $element['width'];
+  if(isset($element['#item']['width']))
+    $options['width'] = $element['#item']['width'];
   $options['html'] = true;
   return streamingvideo_embedcode( $url, $options );
 }
@@ -456,7 +461,7 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
     '#attributes' => array('class' => 'streamingvideofield'),
     '#maxlength' => !empty($field['max_length']) ? $field['max_length'] : NULL,
   );
- 
+
   /*$element['width'] = array(
     '#type' => 'textfield',
     '#title' => 'Width of player',
