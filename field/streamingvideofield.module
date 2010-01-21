@@ -389,10 +389,11 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#element_validate' => array('_element_validate_integer_positive'),
         '#required' => TRUE,
       );
+      $width = (isset($widget['width'])) ? $widget['width'] : variable_get('streamingvideo_width', 640);
       $form['width'] = array(
         '#type' => 'textfield',
         '#title' => t('Width of player'),
-        '#default_value' => (isset($widget['width'])) ? $widget['width'] : variable_get('streamingvideo_width', 640),
+        '#default_value' => $width,
         //'#element_validate add this for validation
         '#required' => TRUE,
       );
