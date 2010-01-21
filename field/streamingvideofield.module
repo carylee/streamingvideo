@@ -403,6 +403,22 @@ function streamingvideofield_widget_settings($op, $widget) {
         //'#element_validate add this for validation
         '#required' => TRUE,
       );
+      $height = (isset($widget['height'])) ? $widget['height'] : variable_get('streamingvideo_height', 640);
+      $form['height'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Height of player'),
+        '#default_value' => $height,
+        //'#element_validate add this for validation
+        '#required' => TRUE,
+      );
+      /*$width = (isset($widget['width'])) ? $widget['width'] : variable_get('streamingvideo_width', 640);
+      $form['width'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Width of player'),
+        '#default_value' => $width,
+        //'#element_validate add this for validation
+        '#required' => TRUE,
+      );*/
       return $form;
 
     // Return an array of the names of the widget settings
@@ -479,4 +495,5 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
  
   return $element;
 }
+// vim: set filetype=php:
 ?>
