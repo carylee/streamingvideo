@@ -313,6 +313,9 @@ function theme_streamingvideofield_formatter_default($element) {
   $ovpstring = $element['#item']['safe'];
   $url = streamingvideo_extracturi( $ovpstring );
   $options = streamingvideo_parseoptions( $ovpstring );
+  //pr($element);
+  if(isset($element['width']))
+    $options['width'] = $element['width'];
   $options['html'] = true;
   return streamingvideo_embedcode( $url, $options );
 }
@@ -452,6 +455,11 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
     '#maxlength' => !empty($field['max_length']) ? $field['max_length'] : NULL,
   );
  
+  $element['width'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Width of player',
+    '#value' => $field['widget']['width'],
+  );
   // Used so that hook_field('validate') knows where to
   // flag an error in deeply nested forms.
   if (empty($form['#parents'])) {
