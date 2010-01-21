@@ -186,9 +186,9 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
         // Cary added this - this is totally the wrong place for this
         // but it may work until I find a better solution
         if(isset($field['widget']['width']))
-          $items[$delta]['width'] = $field['widget']['width'];
+          $items[$delta]['options']['width'] = $field['widget']['width'];
         if(isset($field['widget']['height']))
-          $items[$delta]['height'] = $field['widget']['height'];
+          $items[$delta]['options']['height'] = $field['widget']['height'];
       }
   }
 }
@@ -322,8 +322,8 @@ function theme_streamingvideofield_formatter_default($element) {
   $url = streamingvideo_extracturi( $ovpstring );
   $options = streamingvideo_parseoptions( $ovpstring );
   //pr($element);
-  if(isset($element['#item']['width']))
-    $options['width'] = $element['#item']['width'];
+  if(isset($element['#item']['options']))
+    $options['width'] = $element['#item']['options']['width'];
   $options['html'] = true;
   return streamingvideo_embedcode( $url, $options );
 }
