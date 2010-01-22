@@ -435,12 +435,49 @@ function streamingvideofield_widget_settings($op, $widget) {
         ),
         '#required' => TRUE,
       );
-      $mode = (isset($widget['mode'])) ? $widget['mode'] : variable_get('streamingvideo_mode', 480);
-      $form['mode'] = array(
+      $allowfullscreen = (isset($widget['allowfullscreen'])) ? $widget['allowfullscreen'] : variable_get('streamingvideo_allowfullscreen', 'true');
+      $form['allowfullscreen'] = array(
+        '#type' => 'radios',
+        '#title' => t('Allow fullscreen?'),
+        '#default_value' => $allowfullscreen,
+        '#options' => array(
+          'true' => t('Yes'),
+          'false' => t('No'),
+        ),
+        '#required' => TRUE,
+      );
+      $themecolor = (isset($widget['themecolor'])) ? $widget['themecolor'] : variable_get('streamingvideo_themecolor', '0395d3');
+      $form['themecolor'] = array(
         '#type' => 'textfield',
+        '#title' => t('Theme color'),
+        '#description' => t('Enter a hexidecimal color code for the player theme color'),
+        '#default_value' => $themecolor,
+        '#required' => TRUE,
+      );
+      $autostart = (isset($widget['autostart'])) ? $widget['autostart'] : variable_get('streamingvideo_autostart', 'false');
+      $mode = (isset($widget['mode'])) ? $widget['mode'] : variable_get('streamingvideo_mode', 'sidebyside');
+      $form['mode'] = array(
+        '#type' => 'radios',
         '#title' => t('Player mode'),
         '#default_value' => $mode,
         //'#element_validate add this for validation
+        '#options' => array(
+          'sidebyside' => 'Side by side',
+          'overlay' => 'Overlay',
+        ),
+        '#required' => TRUE,
+      );
+      $scalemode = (isset($widget['scalemode'])) ? $widget['scalemode'] : variable_get('streamingvideo_scalemode', 'fit');
+      $form['scalemode'] = array(
+        '#type' => 'select',
+        '#title' => t('Video scale mode'),
+        '#default_value' => $scalemode,
+        '#options' => array(
+          'fit' => t('Fit'),
+          'stretch' => t('Stretch'),
+          'native' => t('Stretch'),
+          'nativeorsmaller' => t('Native or smaller'),
+        ),
         '#required' => TRUE,
       );
       return $form;
