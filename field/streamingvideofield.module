@@ -193,12 +193,13 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
 function streamingvideofield_player_options( &$field, &$items, $delta ) {
   // I moved this logic into its own function so to make it more modular
   // since I know it's being called from the wrong place.
-  if(isset($field['widget']['width']))
-    $items[$delta]['player_options']['width'] = $field['widget']['width'];
-  if(isset($field['widget']['height']))
-    $items[$delta]['player_options']['height'] = $field['widget']['height'];
-  if(isset($field['widget']['autostart']))
-    $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
+  $widget = $field['widget'];
+  foreach( $widget as $property=>$value) {
+    $properties = array( 'width', 'height', 'autostart', 'mode', 'themecolor', 'allowfullscreen', 'scalemode' );
+    if (in_array($property, $properties)) {
+      $items[$delta]['player_options'][$property] = $value;
+    }
+  }
 }
 
 
