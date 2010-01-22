@@ -442,6 +442,14 @@ function streamingvideofield_widget_settings($op, $widget) {
         ),
         '#required' => TRUE,
       );
+      $mode = (isset($widget['mode'])) ? $widget['mode'] : variable_get('streamingvideo_mode', 480);
+      $form['mode'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Player mode'),
+        '#default_value' => $mode,
+        //'#element_validate add this for validation
+        '#required' => TRUE,
+      );
       return $form;
 
     // Return an array of the names of the widget settings
@@ -450,7 +458,7 @@ function streamingvideofield_widget_settings($op, $widget) {
     // will be available in the $field['widget'] array.
     // This should match the items defined in 'form' above.
     case 'save':
-      return array('size', 'width', 'height', 'autostart');
+      return array('size', 'width', 'height', 'autostart', 'mode');
   }
 }
 
