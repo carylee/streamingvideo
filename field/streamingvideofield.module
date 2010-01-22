@@ -193,10 +193,17 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
 function streamingvideofield_player_options( &$field, &$items, $delta ) {
   // I moved this logic into its own function so to make it more modular
   // since I know it's being called from the wrong place.
-  if(isset($field['widget']['width']))
-    $items[$delta]['player_options']['width'] = $field['widget']['width'];
-  if(isset($field['widget']['height']))
-    $items[$delta]['player_options']['height'] = $field['widget']['height'];
+  $options = $field['widget']['player_options'];
+  if(isset($options['width']))
+    $items[$delta]['player_options']['width'] = $options['width'];
+  if(isset($options['height']))
+    $items[$delta]['player_options']['height'] = $options['height'];
+  if(isset($options['autostart']))
+    $items[$delta]['player_options']['autostart'] = $options['autostart'];
+  if(isset($field['widget']['autostart']))
+    $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
+  if(isset($field['widget']['autostart']))
+    $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
   if(isset($field['widget']['autostart']))
     $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
 }
@@ -407,7 +414,7 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#required' => TRUE,
       );
       $width = (isset($widget['width'])) ? $widget['width'] : variable_get('streamingvideo_width', 640);
-      $form['width'] = array(
+      $form['player_options']['width'] = array(
         '#type' => 'textfield',
         '#title' => t('Width of player'),
         '#default_value' => $width,
@@ -415,7 +422,7 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#required' => TRUE,
       );
       $height = (isset($widget['height'])) ? $widget['height'] : variable_get('streamingvideo_height', 480);
-      $form['height'] = array(
+      $form['player_options']['height'] = array(
         '#type' => 'textfield',
         '#title' => t('Height of player'),
         '#default_value' => $height,
@@ -423,7 +430,7 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#required' => TRUE,
       );
       $autostart = (isset($widget['autostart'])) ? $widget['autostart'] : variable_get('streamingvideo_autostart', 'false');
-      $form['autostart'] = array(
+      $form['player_options']['autostart'] = array(
         '#type' => 'radios',
         '#title' => t('Autostart video?'),
         '#default_value' => $autostart,
