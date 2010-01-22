@@ -332,6 +332,7 @@ function theme_streamingvideofield_formatter_default($element) {
   $url = streamingvideo_extracturi( $ovpstring );
   //pr($element);
   $content_options = $element['#item']['player_options']; // load the content type level options
+  //pr($content_options);
   $user_options = streamingvideo_parseoptions( $ovpstring ); // Load any in-line options
   $options = array_merge($content_options, $user_options); // Merge these two, prioritizing the in-line
   $options['html'] = true; // yes, we want the html wrapper
@@ -489,7 +490,7 @@ function streamingvideofield_widget_settings($op, $widget) {
     // will be available in the $field['widget'] array.
     // This should match the items defined in 'form' above.
     case 'save':
-      return array('size', 'width', 'height', 'autostart', 'mode');
+      return array('size', 'width', 'height', 'autostart', 'mode', 'allowfullscreen', 'scalemode', 'themecolor');
   }
 }
 
