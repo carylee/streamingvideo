@@ -206,7 +206,7 @@ function streamingvideofield_player_options( &$field, &$items, $delta ) {
     $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
   if(isset($field['widget']['autostart']))
     $items[$delta]['player_options']['autostart'] = $field['widget']['autostart'];
-  pr($items[$delta]['player_options'];
+  pr($items[$delta]['player_options']);
 }
 
 
