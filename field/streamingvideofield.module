@@ -452,6 +452,7 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#title' => t('Theme color'),
         '#description' => t('Enter a hexidecimal color code for the player theme color'),
         '#default_value' => $themecolor,
+        '#size' => 6,
         '#required' => TRUE,
       );
       $autostart = (isset($widget['autostart'])) ? $widget['autostart'] : variable_get('streamingvideo_autostart', 'false');
