@@ -476,7 +476,7 @@ function streamingvideofield_widget_settings($op, $widget) {
         '#options' => array(
           'fit' => t('Fit'),
           'stretch' => t('Stretch'),
-          'native' => t('Stretch'),
+          'native' => t('Native'),
           'nativeorsmaller' => t('Native or smaller'),
         ),
         '#required' => TRUE,
