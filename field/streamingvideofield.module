@@ -182,12 +182,10 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
       foreach ($items as $delta => $item) {
         $streamingvideofield = check_plain($item['value']);
         $items[$delta]['safe'] = $streamingvideofield;
-        
-        // Cary added this - this is totally the wrong place for this
-        // but it may work until I find a better solution
-        //streamingvideofield_player_options( $field, $items, $delta );
       }
+
     case 'view':
+      // Make player options available for presentation
       foreach ($items as $delta => $item)
         streamingvideofield_player_options( $field, $items, $delta );
   }
