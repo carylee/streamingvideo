@@ -185,8 +185,11 @@ function streamingvideofield_field($op, &$node, $field, &$items, $teaser, $page)
         
         // Cary added this - this is totally the wrong place for this
         // but it may work until I find a better solution
-        streamingvideofield_player_options( $field, $items, $delta );
+        //streamingvideofield_player_options( $field, $items, $delta );
       }
+    case 'view':
+      foreach ($items as $delta => $item)
+        streamingvideofield_player_options( $field, $items, $delta );
   }
 }
 
