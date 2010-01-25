@@ -43,3 +43,7 @@ mode (sidebyside or overlay)
 These options may be presented in any order
 
 When options are left undefined, they will default to the global settings which can be changed at admin/settings/streamingvideo
+
+CCK Field
+---------
+For the CCK field, player options can be set one of two ways.  Player options can be set for an entire content type on the "manage fields" page for the Streaming video widget.  When these settings are omitted, they default to the global settings.  Player options can be set directly for a single node using same synatax as the filter excluding the [ovp:] wrapper (so option=value,option=value, uri).  These sort of settings have precidence over the content type-level settings.
