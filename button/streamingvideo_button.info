@@ -1,6 +1,0 @@
-; $Id$
-name = Streaming video button
-description = Adds a TinyMCE button for adding an Akamai Open Video Player
-package = User interface
-core = 6.x
-dependencies[] = wysiwyg
