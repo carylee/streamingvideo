@@ -95,7 +95,7 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
  *   plugin files. This directory must only contain integration files for
  *   Wysiwyg module.
  */
-function hook_wysiwyg_include_directory($type) {
+function streamingvideo_wysiwyg_include_directory($type) {
   switch ($type) {
     case 'plugins':
       // You can just return $type, if you place your Wysiwyg plugins into a
