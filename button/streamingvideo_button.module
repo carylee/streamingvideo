@@ -40,7 +40,7 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
   switch ($editor) {
     case 'tinymce':
       if ($version > 3) {
-        return array(
+        $returnArray =  array(
           'streamingvideo' => array(
             // A URL to the plugin's homepage.
             'url' => 'http://github.com/carylee/streamingvideo',
@@ -50,7 +50,7 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
             // match the corresponding JavaScript implementation. The value is
             // is displayed on the editor configuration form only.
             'buttons' => array(
-              'streamingvideo' => t('Image Assist'),
+              'streamingvideo' => t('Streaming Video'),
             ),
             // A list of editor extensions provided by this native plugin.
             // Extensions are not displayed as buttons and touch the editor's
@@ -80,6 +80,7 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
             ),*/
           ),
         );
+        return $returnArray;
       }
       break;
   }
@@ -161,3 +162,4 @@ function streamingvideo_wysiwyg_include_directory($type) {
   return $plugins;
 }*/
 
+/*vim: set filetype=php*/
