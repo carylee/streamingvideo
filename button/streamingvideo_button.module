@@ -36,7 +36,7 @@
  *   An associative array having internal plugin names as keys and an array of
  *   plugin meta-information as values.
  */
-function hook_wysiwyg_plugin($editor, $version) {
+function streamingvideo_wysiwyg_plugin($editor, $version) {
   switch ($editor) {
     case 'tinymce':
       if ($version > 3) {
