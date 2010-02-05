@@ -1,6 +1,6 @@
-/* $Id: columnbreak.css,v 1.1 2009/08/24 20:48:05 joachim Exp $ */
+/* $Id: ovplayer.css,v 1.1 2009/08/24 20:48:05 joachim Exp $ */
 
-.wysiwyg-columnbreak {
+.wysiwyg-ovplayer {
   display: block;
   border: 0;
   border-top: 1px dotted #ccc;

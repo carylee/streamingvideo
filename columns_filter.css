@@ -1,0 +1,13 @@
+/* $Id: columns_filter.css,v 1.1 2009/06/22 16:39:00 joachim Exp $ */ 
+.content .content-column {
+  float: left;
+}
+.content .content-column-2 {
+  width: 50%;
+}
+.content .content-column-3 {
+  width: 33%;
+}
+.content .content-column-4 {
+  width: 25%;
+}
