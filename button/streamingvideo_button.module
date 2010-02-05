@@ -36,7 +36,7 @@
  *   An associative array having internal plugin names as keys and an array of
  *   plugin meta-information as values.
  */
-function streamingvideo_wysiwyg_plugin($editor, $version) {
+/*function streamingvideo_wysiwyg_plugin($editor, $version) {
   switch ($editor) {
     case 'tinymce':
       if ($version > 3) {
@@ -55,11 +55,13 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
             // A list of editor extensions provided by this native plugin.
             // Extensions are not displayed as buttons and touch the editor's
             // internals, so you should know what you are doing.
+ */
             /*'extensions' => array(
               'imce' => t('IMCE'),
             ),*/
             // A list of global, native editor configuration settings to
             // override. To be used rarely and only when required.
+/*
             'options' => array(
               //'file_browser_callback' => 'imceImageBrowser',
               //'inline_styles' => TRUE,
@@ -78,13 +80,14 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
             /*'extended_valid_elements' => array(
               'img[class|src|border=0|alt|title|width|height|align|name|style]',
             ),*/
+/*
           ),
         );
         return $returnArray;
       }
       break;
   }
-}
+}*/
 
 /**
  * Register a directory containing Wysiwyg plugins.
