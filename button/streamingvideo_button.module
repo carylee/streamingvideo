@@ -50,7 +50,7 @@ function streamingvideo_wysiwyg_plugin($editor, $version) {
             // match the corresponding JavaScript implementation. The value is
             // is displayed on the editor configuration form only.
             'buttons' => array(
-              'streamingvideo' => t('Streaming Video'),
+              'streamingvideo.desc' => t('Streaming Video'),
             ),
             // A list of editor extensions provided by this native plugin.
             // Extensions are not displayed as buttons and touch the editor's
@@ -162,4 +162,4 @@ function streamingvideo_wysiwyg_include_directory($type) {
   return $plugins;
 }*/
 
-/*vim: set filetype=php*/
+// vim: set filetype=php :
