@@ -16,7 +16,7 @@
 /**
  * Implementation of hook_init().
  */
-/*function streamingvideo_init() {
+/*function streamingvideo_button_init() {
   drupal_add_css(drupal_get_path('module', 'streamingvideo') .'/streamingvideo.css');
 }*/
 
@@ -29,7 +29,7 @@
  *   The function returns the include directory "plugins". This directory must only
  *   contain wysiwyg api integration files.
  */
-function streamingvideo_wysiwyg_include_directory($type) {
+function streamingvideo_button_wysiwyg_include_directory($type) {
   if ($type == 'plugins') {
     return $type;
   }
