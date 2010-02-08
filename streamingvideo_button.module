@@ -38,7 +38,7 @@ function streamingvideo_button_wysiwyg_include_directory($type) {
 /**
   * Implementation of hook_menu()
   */
-function tinymce_node_picker_menu() {
+function streamingvideo_button_menu() {
   $items = array();
   
   $items['admin/streamingvideo-button/dialog'] = array(
