@@ -17,7 +17,7 @@ function columns_filter_ovplayer_plugin() {
     'icon title' => t('Insert a streaming video'),
     'settings' => array(
       'dialog' => array(
-        'url' => base_path() . 'index.php?q=img_assist/load/tinymce',
+        'url' => base_path() . 'index.php?q=admin/streamingvideo-button/dialog',
         'width' => 700,
         'height' => 500,
         ),
