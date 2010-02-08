@@ -16,7 +16,10 @@ function streamingvideo_button_page_input() {
   // Add JavaScript
   drupal_add_js(drupal_get_path('module', 'streamingvideo_button') . '/js/dialog.js');
   
-  // Get contents
+  // Create page
+  $content = '<b>This is a test</b>';
   
-  }
+  echo theme('streamingvideo_button_page', $content);
+  
+}
   

@@ -34,3 +34,32 @@ function streamingvideo_wysiwyg_include_directory($type) {
     return $type;
   }
 }
+
+/**
+  * Implementation of hook_menu()
+  */
+function tinymce_node_picker_menu() {
+  $items = array();
+  
+  $items['admin/streamingvideo-button/dialog'] = array(
+    'title' => 'Dialog',
+    'page callback' => 'streamingvideo_button_page_input',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'streamingvideo_button.page.inc',
+  );
+  
+  return $items;
+}
+
+/**
+  *
+  */
+function streamingvideo_button_theme(){
+  $theme['streamingvideo_button_page'] = array(
+    'template' => 'streamingvideo_button-page',
+    'arguments' => array('content' => NULL, 'show_messages' => TRUE),
+  );
+  
+  return $theme;
+}
