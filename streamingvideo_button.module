@@ -1,6 +1,8 @@
 <?php
 // $Id:$
 
+// Some module bases:
+// tinymce_node_picker
 // Based on streamingvideo
 /**
  * @file
