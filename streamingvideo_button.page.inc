@@ -18,7 +18,6 @@ function streamingvideo_button_page_input() {
   
   // Create page
   $content = <<< EOD
-
 <form>
 <label for="url">Video URL</label><input type="text" name="url" id="video_url">
 <input type="submit" name="submit" value="Insert video">
