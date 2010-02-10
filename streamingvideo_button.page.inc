@@ -19,12 +19,7 @@ function streamingvideo_button_page_input() {
   // Create page
   $content = <<< EOD
 <form>
-
-<fieldset id="streamingvideo_fields">
-	<legend>Insert a streaming video</legend>
-	<label for="url">Video URL</label><input type="text" name="url" id="video_url">˝
-	
-</fieldset>
+<label for="url">Video URL</label><input type="text" name="url" id="video_url">
 </form>
 EOD;
 
