@@ -1,5 +1,5 @@
 <?php
-// $Id: columns_filter.module,v 1.5 2009/08/24 20:48:05 joachim Exp $
+// $Id: streamingvideo_button.module,v 1.5 2009/08/24 20:48:05 joachim Exp $
 
 /**
  * @file
@@ -20,7 +20,7 @@
  *   The function returns the include directory "plugins". This directory must only
  *   contain wysiwyg api integration files.
  */
-function columns_filter_wysiwyg_include_directory($type) {
+function streamingvideo_button_wysiwyg_include_directory($type) {
   if ($type == 'plugins') {
     return $type;
   }
