@@ -17,7 +17,17 @@ function streamingvideo_button_page_input() {
   drupal_add_js(drupal_get_path('module', 'streamingvideo_button') . '/js/dialog.js');
   
   // Create page
-  $content = '<b>This is a test</b>';
+  $content = <<< EOD
+<form>
+
+<fieldset id="streamingvideo_fields">
+	<legend>Insert a streaming video</legend>
+	<label for="url">Video URL</label><input type="text" name="url" id="video_url">˝
+	
+</fieldset>
+</form>
+EOD;
+
   
   echo theme('streamingvideo_button_page', $content);
   
