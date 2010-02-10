@@ -13,16 +13,12 @@ Drupal.wysiwyg.plugins['ovplayer'] = {
    * Execute the button.
    */
   invoke: function(data, settings, instanceId) {
-    if (data.format == 'html') {
-      var content = this._getPlaceholder(settings);
+      //var content = this._getPlaceholder(settings);
       var options = {nid: '', title: '', captionTitle: '', desc: '', captionDesc: '', link: '', url: '', align: '', width: '', height: '', id: instanceId, action: 'insert'};
-    }
-    else {
-      var content = '<!--column-->';
-    }
-    if (typeof content != 'undefined') {
-      Drupal.wysiwyg.instances[instanceId].openDialog(settings.dialog, options);
-    }
+      var videoValue = Drupal.wysiwyg.instances[instanceId].openDialog(settings.dialog, options);
+      dump(settings);
+      alert(settings.dialog.url);
+      Drupal.wysiwyg.instances[instanceId].insert(settings.dialog);
   },
 
   /**
@@ -51,7 +47,4 @@ Drupal.wysiwyg.plugins['ovplayer'] = {
   /**
    * Helper function to return a HTML placeholder.
    */
-  _getPlaceholder: function (settings) {
-    return '<img src="' + settings.path + '/images/spacer.gif" alt="&lt;--column-&gt;" title="&lt;--column--&gt;" class="wysiwyg-ovplayer" />';
-  }
 };
