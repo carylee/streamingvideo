@@ -1,6 +1,6 @@
 ; $Id: streamingvideo_button.info,v 1.1 2009/06/22 16:39:00 joachim Exp $
-name = Columns filter
-description = An input filter to format node body into columns.
+name = Streaming Video Button
+description = Adds a streaming video button to TinyMCE
 core = 6.x
 
 ; Information added by drupal.org packaging script on 2009-08-24
