@@ -1,18 +1,18 @@
 <html>
 <head>
 	<title>Add Video</title>
-	<link type="text/css" rel="stylesheet" media="all" href="../../../themes/sis/sis.css?2" />
+  <!--<link type="text/css" rel="stylesheet" media="all" href="../../../themes/sis/sis.css?2" />-->
 </head>
 
 <body>
 <script type="text/javascript">
 <!--
 	function handleOK() {
-		var theFile = prefs.elements["swfname"].value;
-		var thePos = prefs.elements["position"].value;
+		var theFile = prefs.elements["videourl"].value;
+		//var thePos = prefs.elements["position"].value;
 		var theReturn = new Array();
 		theReturn[0] = theFile;
-		theReturn[1] = thePos;
+		//theReturn[1] = thePos;
     	window.returnValue = theReturn;
         window.close();
 	}
@@ -41,26 +41,26 @@
 <h3>Insert Video Object</h3>
 
 <FORM NAME="prefs" onSubmit="return false">
-<LABEL for="swfname">SWF Filename: </LABEL>
-              <INPUT type="text" id="swfname"><span>.swf</span><br/><br/>
-<LABEL for="position">SWF Position: </LABEL>
+<LABEL for="videourl">Streaming video url</LABEL>
+              <INPUT type="text" id="swfname"><br/><br/>
+<!--<LABEL for="position">SWF Position: </LABEL>
 <SELECT NAME="position">
     <OPTION VALUE="center">Center
     <OPTION VALUE="left">Left
     <OPTION VALUE="Right">Right
-</SELECT>
+    </SELECT>-->
 
 </FORM>
 
 <BUTTON onClick="handleOK()">Insert Video</BUTTON>
 <hr/>
-<div>
+<!--<div>
 	<div>Please note:</div>
 	<ul>
 		<li>Video content must be added to the site as content before adding it to an article.</li>
 		<li>Filename should be the actual filename, not the site content item name. Do not include '.swf'.</li>
 	</ul>
-</div>
+</div>-->
 
 </body>
 </html>
