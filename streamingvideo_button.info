@@ -2,5 +2,3 @@
 name = Streaming video button
 description = A WYSIWYG editor button to embed streaming video.
 core = 6.x
-
-

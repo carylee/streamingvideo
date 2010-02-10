@@ -4,6 +4,7 @@
 // Some module bases:
 // tinymce_node_picker
 // Based on streamingvideo
+
 /**
  * @file
  * Columns input filter: use <!--column--> to create a column break.
@@ -14,14 +15,6 @@
  * You are strongly advised to override this module's CSS to provide a gutter:
  * this is not cleanly possible with percentage widths.
  */
-
-/**
- * Implementation of hook_init().
- */
-/*function streamingvideo_button_init() {
-  drupal_add_css(drupal_get_path('module', 'streamingvideo') .'/streamingvideo.css');
-}*/
-
 
 /**
  * Implementation of hook_wysiwyg_include_directory().
@@ -65,3 +58,4 @@ function streamingvideo_button_theme(){
   
   return $theme;
 }
+// vim: set filetype=php:
