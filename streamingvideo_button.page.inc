@@ -17,15 +17,17 @@ function streamingvideo_button_page_input() {
   drupal_add_js(drupal_get_path('module', 'streamingvideo_button') . '/js/dialog.js');
   
   // Create page
-  $content = <<< EOD
+  /*$content = <<< EOD
 <form>
 <label for="url">Video URL</label><input type="text" name="url" id="video_url">
 <input type="submit" name="submit" value="Insert video">
 </form>
-EOD;
-
+EOD;*/
+$path = drupal_get_path('module', 'streamingvideo_button') . '/dialog.html';
+$content = file_get_contents($path);
   
-  echo theme('streamingvideo_button_page', $content);
+  //echo theme('streamingvideo_button_page', $content);
+  echo $content;
   
 }
   
