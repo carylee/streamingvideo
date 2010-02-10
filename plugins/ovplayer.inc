@@ -9,7 +9,7 @@
 /**
  * Implementation of hook_wysiwyg_plugin().
  */
-function columns_filter_ovplayer_plugin() {
+function streamingvideo_button_ovplayer_plugin() {
   $plugins['ovplayer'] = array(
     'title' => t('Open video player'),
     'vendor url' => 'http://github.com/carylee/streamingvideo',
