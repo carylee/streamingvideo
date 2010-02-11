@@ -12,7 +12,8 @@
 		//var thePos = prefs.elements["position"].value;
 		var theReturn = new Array();
 		theReturn[0] = theFile;
-		//theReturn[1] = thePos;
+    theReturn[1] = prefs.elements["playerheight"].value;
+    theReturn[2] = prefs.elements["playerwidth"].value;
     	window.returnValue = theReturn;
         window.close();
 	}
@@ -42,13 +43,17 @@
 
 <FORM NAME="prefs" onSubmit="return false">
 <LABEL for="videourl">Streaming video url</LABEL>
-              <INPUT type="text" id="swfname"><br/><br/>
+              <INPUT type="text" id="videourl"><br/><br/>
 <!--<LABEL for="position">SWF Position: </LABEL>
 <SELECT NAME="position">
     <OPTION VALUE="center">Center
     <OPTION VALUE="left">Left
     <OPTION VALUE="Right">Right
     </SELECT>-->
+<label for="height">Player height</label>
+  <input type="text" id="playerheight" /><span>pixels</span><br/>
+<label for="width">Player width</label>
+  <input type="text" id="playerwidth" /><span>pixels</span><br/>
 
 </FORM>
 
