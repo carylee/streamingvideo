@@ -14,11 +14,17 @@ Drupal.wysiwyg.plugins['ovplayer'] = {
    */
   invoke: function(data, settings, instanceId) {
       //var content = this._getPlaceholder(settings);
-      var options = {nid: '', title: '', captionTitle: '', desc: '', captionDesc: '', link: '', url: '', align: '', width: '', height: '', id: instanceId, action: 'insert'};
-      var videoValue = Drupal.wysiwyg.instances[instanceId].openDialog(settings.dialog, options);
-      dump(settings);
-      alert(settings.dialog.url);
-      Drupal.wysiwyg.instances[instanceId].insert(settings.dialog);
+      //var options = {nid: '', title: '', captionTitle: '', desc: '', captionDesc: '', link: '', url: '', align: '', width: '', height: '', id: instanceId, action: 'insert'};
+      //var videoValue = Drupal.wysiwyg.instances[instanceId].openDialog(settings.dialog, options);
+      
+      var optionString = "\"dialogWidth:" + settings.dialog.width + "px;dialogHeight:" + settings.dialog.height + "px;\"";
+      var videoValue = window.showModalDialog(settings.dialog.url, "", optionString);
+      var videoUrl = videoValue[0];
+
+      if( videoValue ) {
+        var ovpString = "[ovp:" + videoUrl + "]";
+        Drupal.wysiwyg.instances[instanceId].insert(ovpString);
+      }
   },
 
   /**
