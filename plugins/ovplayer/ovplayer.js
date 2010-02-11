@@ -23,7 +23,7 @@ Drupal.wysiwyg.plugins['ovplayer'] = {
       var videoHeight = videoValue[1];
       var videoWidth = videoValue[2];
 
-      if( videoValue ) {
+      if( videoUrl ) {
         var ovpString = "[ovp:";
         if( videoHeight ) {
           ovpString += "height=" + videoHeight + ",";
