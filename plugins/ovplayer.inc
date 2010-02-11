@@ -18,8 +18,8 @@ function streamingvideo_button_ovplayer_plugin() {
     'settings' => array(
       'dialog' => array(
         'url' => base_path() . 'index.php?q=admin/streamingvideo-button/dialog',
-        'width' => 700,
-        'height' => 500,
+        'width' => 400,
+        'height' => 300,
         ),
       ),
   );
