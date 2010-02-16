@@ -1,0 +1,81 @@
+<html>
+<head>
+	<title>Add Video</title>
+  <style type="text/css">
+    input#videourl {
+      width:400px;
+    }
+    input.dimensions {
+      width:40px;
+    }
+    input {
+      margin:5px;
+    }
+  </style>
+</head>
+
+<body>
+<script type="text/javascript">
+<!--
+	function handleOK() {
+		var theFile = prefs.elements["videourl"].value;
+		//var thePos = prefs.elements["position"].value;
+		var theReturn = new Array();
+		theReturn[0] = theFile;
+    theReturn[1] = prefs.elements["playerheight"].value;
+    theReturn[2] = prefs.elements["playerwidth"].value;
+    	window.returnValue = theReturn;
+        window.close();
+	}
+
+	function getFormData() {
+    	var form = document.prefs
+    	var returnedData = new Array()
+    	// Harvest values for each type of form element
+    	for (var i = 0; i < form.elements.length; i++) {
+      	  if (form.elements[i].type == "text") {
+      	      returnedData[form.elements[i].name] = form.elements[i].value
+       	 } else if (form.elements[i].type.indexOf("select") != -1) {
+       	     returnedData[form.elements[i].name] = 
+       	     form.elements[i].options[form.elements[i].selectedIndex].value
+       	 } else if (form.elements[i].type == "radio") {
+       	     returnedData[form.elements[i].name] = form.elements[i].value
+       	 } else if (form.elements[i].type == "checkbox") {
+       	     returnedData[form.elements[i].name] = form.elements[i].value
+       	 } else continue
+    	}
+   	 return returnedData
+	}
+
+//-->
+</script>
+<h3>Insert Video Object</h3>
+
+<FORM NAME="prefs" onSubmit="return false">
+<LABEL for="videourl">Streaming video url</LABEL>
+              <INPUT type="text" id="videourl"><br/><br/>
+<!--<LABEL for="position">SWF Position: </LABEL>
+<SELECT NAME="position">
+    <OPTION VALUE="center">Center
+    <OPTION VALUE="left">Left
+    <OPTION VALUE="Right">Right
+    </SELECT>-->
+<label for="width">Player width</label>
+  <input type="text" id="playerwidth" class="dimensions"/><span>pixels</span><br/>
+<label for="height">Player height</label>
+  <input type="text" id="playerheight" class="dimensions"/><span>pixels</span><br/>
+
+</FORM>
+
+<BUTTON onClick="handleOK()">Insert Video</BUTTON>
+<hr/>
+<!--<div>
+	<div>Please note:</div>
+	<ul>
+		<li>Video content must be added to the site as content before adding it to an article.</li>
+		<li>Filename should be the actual filename, not the site content item name. Do not include '.swf'.</li>
+	</ul>
+</div>-->
+
+</body>
+</html>

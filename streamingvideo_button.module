@@ -1,0 +1,68 @@
+<?php
+// $Id:$
+
+// Some module bases:
+// tinymce_node_picker
+// Based on streamingvideo
+
+/**
+ * Todo:
+ * Make dialog page more drupal-like (parse through theme)
+ * Style dialog page
+ * Add validation
+ */
+
+/**
+ * @file
+ * Columns input filter: use <!--column--> to create a column break.
+ * Must be placed after the HTML filter and above the line break converter filter:
+ *  - HTML filter
+ *  - Columns filter
+ *  - Line break converter
+ * You are strongly advised to override this module's CSS to provide a gutter:
+ * this is not cleanly possible with percentage widths.
+ */
+
+/**
+ * Implementation of hook_wysiwyg_include_directory().
+ * @param string $type
+ *   Contains either "plugins" or "editors"?
+ * @return string
+ *   The function returns the include directory "plugins". This directory must only
+ *   contain wysiwyg api integration files.
+ */
+function streamingvideo_button_wysiwyg_include_directory($type) {
+  if ($type == 'plugins') {
+    return $type;
+  }
+}
+
+/**
+  * Implementation of hook_menu()
+  */
+function streamingvideo_button_menu() {
+  $items = array();
+  
+  $items['admin/streamingvideo-button/dialog'] = array(
+    'title' => 'Dialog',
+    'page callback' => 'streamingvideo_button_page_input',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'streamingvideo_button.page.inc',
+  );
+  
+  return $items;
+}
+
+/**
+  *
+  */
+function streamingvideo_button_theme(){
+  $theme['streamingvideo_button_page'] = array(
+    'template' => 'streamingvideo_button-page',
+    'arguments' => array('content' => NULL, 'show_messages' => TRUE),
+  );
+  
+  return $theme;
+}
+// vim: set filetype=php:
