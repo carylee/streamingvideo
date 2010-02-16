@@ -6,6 +6,13 @@
 // Based on streamingvideo
 
 /**
+ * Todo:
+ * Make dialog page more drupal-like (parse through theme)
+ * Style dialog page
+ * Add validation
+ */
+
+/**
  * @file
  * Columns input filter: use <!--column--> to create a column break.
  * Must be placed after the HTML filter and above the line break converter filter:
