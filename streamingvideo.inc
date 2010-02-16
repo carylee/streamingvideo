@@ -87,3 +87,17 @@ function streamingvideo_parseoptions( $ovpstring ) {
 
   return $options;
 }
+
+function streamingvideo_external_embed( $url ) {
+  $player_url = url(NULL, array('absolute'=>TRUE)) . 'sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf';
+  $src = $player_url . '?src=' . urlencode( $url ) . '&autostart=true&themeColor=0395d3&mode=sidebyside&scaleMode=fit';
+  
+  $code = '<object width="425" height="344"><embed src="' . $src . '" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>';
+          
+  return $code;
+}
+
+function streamingvideo_embedtext( $url ) {
+  $text = streamingvideo_external_embed( $url );
+  return '<textarea>' . $text . '</textarea>';
+}

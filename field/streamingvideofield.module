@@ -279,6 +279,9 @@ function streamingvideofield_theme() {
     'streamingvideofield_formatter_plain' => array(
       'arguments' => array('element' => NULL),
     ),
+    'streamingvideofield_formatter_embedcode' => array(
+      'arguments' => array('element' => NULL),
+    ),
   );
 }
 
@@ -314,6 +317,11 @@ function streamingvideofield_field_formatter_info() {
       'field types' => array('streamingvideofield'),
       'multiple values' => CONTENT_HANDLE_CORE,
     ),
+    'embedcode' => array(
+      'label' => t('Embed code'),
+      'field types' => array('streamingvideofield'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+    ),
   );
 }
 
@@ -346,6 +354,17 @@ function theme_streamingvideofield_formatter_default($element) {
 function theme_streamingvideofield_formatter_plain($element) {
   return strip_tags($element['#item']['safe']);
 }
+
+/**
+ * Theme function for 'embedcode' streamingvideofield field formatter
+ */
+function theme_streamingvideofield_formatter_embedcode($element) {
+  $ovpstring = $element['#item']['safe'];
+  $url = streamingvideo_extracturi( $ovpstring );
+  return streamingvideo_embedtext( $url );
+}
+  
+
 
 //==========================================//
 // DEFINING A WIDGET
