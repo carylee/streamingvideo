@@ -282,6 +282,9 @@ function streamingvideofield_theme() {
     'streamingvideofield_formatter_embedcode' => array(
       'arguments' => array('element' => NULL),
     ),
+    'streamingvideofield_formatter_videowithembed' => array(
+      'arguments' => array('element' => NULL),
+    ),
   );
 }
 
@@ -319,6 +322,11 @@ function streamingvideofield_field_formatter_info() {
     ),
     'embedcode' => array(
       'label' => t('Embed code'),
+      'field types' => array('streamingvideofield'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+    ),
+    'videowithembed' => array(
+      'label' => t('Video with embed code'),
       'field types' => array('streamingvideofield'),
       'multiple values' => CONTENT_HANDLE_CORE,
     ),
@@ -362,6 +370,14 @@ function theme_streamingvideofield_formatter_embedcode($element) {
   $ovpstring = $element['#item']['safe'];
   $url = streamingvideo_extracturi( $ovpstring );
   return streamingvideo_embedtext( $url );
+}
+
+function theme_streamingvideofield_formatter_videowithembed( $element ) {
+  $embed_video = theme_streamingvideofield_formatter_default( $element );
+  $text_field = theme_streamingvideofield_formatter_embedcode( $element );
+
+
+  return $embed_video . '<br />' . $text_field;
 }
   
 
