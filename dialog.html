@@ -51,31 +51,25 @@
 </script>
 <h3>Insert Video Object</h3>
 
-<FORM NAME="prefs" onSubmit="return false">
-<LABEL for="videourl">Streaming video url</LABEL>
-              <INPUT type="text" id="videourl"><br/><br/>
-<!--<LABEL for="position">SWF Position: </LABEL>
-<SELECT NAME="position">
-    <OPTION VALUE="center">Center
-    <OPTION VALUE="left">Left
-    <OPTION VALUE="Right">Right
-    </SELECT>-->
-<label for="width">Player width</label>
-  <input type="text" id="playerwidth" class="dimensions"/><span>pixels</span><br/>
-<label for="height">Player height</label>
-  <input type="text" id="playerheight" class="dimensions"/><span>pixels</span><br/>
+<form name="prefs" onSubmit="return false">
+  <table>
+    <tr>
+      <td><label for="videourl">Streaming video url</label></td>
+      <td><input type="text" id="videourl"></td>
+    </tr>
+    <tr>
+      <td><label for="width">Player width</label></td>
+      <td><input type="text" id="playerwidth" class="dimensions"/><span>pixels</span></td>
+    </tr>
+    <tr>
+      <td><label for="height">Player height</label></td>
+      <td><input type="text" id="playerheight" class="dimensions"/><span>pixels</span></td>
+    </tr>
+  </table>
+</form>
 
-</FORM>
-
-<BUTTON onClick="handleOK()">Insert Video</BUTTON>
+<button onClick="handleOK()">Insert Video</button>
 <hr/>
-<!--<div>
-	<div>Please note:</div>
-	<ul>
-		<li>Video content must be added to the site as content before adding it to an article.</li>
-		<li>Filename should be the actual filename, not the site content item name. Do not include '.swf'.</li>
-	</ul>
-</div>-->
 
 </body>
 </html>
