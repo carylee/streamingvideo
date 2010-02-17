@@ -97,7 +97,12 @@ function streamingvideo_external_embed( $url ) {
   return $code;
 }
 
-function streamingvideo_embedtext( $url ) {
+function streamingvideo_embedtext( $url, $options=array() ) {
+  // For ease of use, this takes the same $options array as the other function
+  // The only option we care about though is width
+  if( empty($options['width'] ))
+    $options['width'] = variable_get('streamingvideo_width', 640);
+
   $text = streamingvideo_external_embed( $url );
-  return '<textarea>' . $text . '</textarea>';
+  return '<textarea style="width:' . $options['width'] . 'px" >' . $text . '</textarea>';
 }
