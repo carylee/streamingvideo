@@ -57,12 +57,12 @@ function streamingvideo_button_menu() {
 /**
   *
   */
-function streamingvideo_button_theme(){
+/*function streamingvideo_button_theme(){
   $theme['streamingvideo_button_page'] = array(
     'template' => 'streamingvideo_button-page',
     'arguments' => array('content' => NULL, 'show_messages' => TRUE),
   );
   
   return $theme;
-}
+}*/
 // vim: set filetype=php:
