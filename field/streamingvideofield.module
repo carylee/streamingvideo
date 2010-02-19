@@ -373,11 +373,18 @@ function theme_streamingvideofield_formatter_embedcode($element) {
 }
 
 function theme_streamingvideofield_formatter_videowithembed( $element ) {
-  $embed_video = theme_streamingvideofield_formatter_default( $element );
-  $text_field = theme_streamingvideofield_formatter_embedcode( $element );
+  $ovpstring = $element['#item']['safe'];
+  $url = streamingvideo_extracturi( $ovpstring );
+  $content_options = $element['#item']['player_options']; // load the content type level options
+  $user_options = streamingvideo_parseoptions( $ovpstring ); // Load any in-line options
+  $options = array_merge($content_options, $user_options); // Merge these two, prioritizing the in-line
+  $options['html'] = true; // yes, we want the html wrapper
+
+  $embed_video = streamingvideo_embedcode( $url, $options );
+  $text_field = streamingvideo_embedtext( $url, $options );
 
 
-  return $embed_video . '<br />' . $text_field;
+  return $embed_video . '<br />Embed code:' . $text_field;
 }
   
 
