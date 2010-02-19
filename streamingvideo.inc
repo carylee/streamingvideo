@@ -89,8 +89,10 @@ function streamingvideo_parseoptions( $ovpstring ) {
 }
 
 function streamingvideo_external_embed( $url ) {
-  $player_url = url(NULL, array('absolute'=>TRUE)) . 'sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf';
+  $default_player_url = url(NULL, array('absolute'=>TRUE)) . 'sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf';
+  $player_url = variable_get('streamingvideo_embedplayer', $default_player_url);
   $src = $player_url . '?src=' . urlencode( $url ) . '&autostart=true&themeColor=0395d3&mode=sidebyside&scaleMode=fit';
+
   
   $code = '<object width="425" height="344"><embed src="' . $src . '" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>';
           
