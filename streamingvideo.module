@@ -152,6 +152,17 @@ function streamingvideo_admin() {
     '#required' => FALSE,
   );
 
+  global $base_url;
+
+  $form['streamingvideo_embedplayer'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Embed player url'),
+    '#default_value' => variable_get('streamingvideo_embedplayer', $base_url . '/sites/all/libraries/ovp/AkamaiMultiPlayerExample.swf'),
+    '#size' => 15,
+    '#description' => t("This is the player that will be used in any provided embed code"),
+    '#required' => FALSE,
+  );
+
   return system_settings_form($form);
 }
 
