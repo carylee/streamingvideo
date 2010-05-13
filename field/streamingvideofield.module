@@ -142,13 +142,6 @@ function _streamingvideofield_url_validate($element, &$form_state) {
   }
 }
 
-// I just through this in for debugging help ~Cary Thu Jan  7 16:54:24 CST 2010
-function pr( $foo ) {
-  echo "<pre>";
-  print_r( $foo );
-  echo "</pre>";
-}
-
 /**
 * Implementation of hook_field().
 */
@@ -601,5 +594,4 @@ function streamingvideofield_widget(&$form, &$form_state, $field, $items, $delta
  
   return $element;
 }
-// vim: set filetype=php:
 ?>

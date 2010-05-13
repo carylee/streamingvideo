@@ -1,5 +1,5 @@
 <?php
-// $Id: wysiwyg-dialog-page.tpl.php,v 1.1 2009/02/01 09:20:48 sun Exp $
+// $Id$
 
 /**
  * @file

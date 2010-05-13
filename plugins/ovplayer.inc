@@ -1,9 +1,9 @@
 <?php
-// $Id: ovplayer.inc,v 1.1 2009/08/24 20:48:05 joachim Exp $
+// $Id$
 
 /**
  * @file
- * Wysiwyg API integration for columns filter module.
+ * Wysiwyg API integration for streaming video module.
  */
 
 /**

@@ -65,4 +65,3 @@ function streamingvideo_button_theme(){
   
   return $theme;
 }
-// vim: set filetype=php:
